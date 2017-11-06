@@ -9537,7 +9537,7 @@ ALTER TABLE `ts_feed` CHANGE `latitude` `latitude` VARCHAR(25) NULL DEFAULT NULL
 --
 -- 群聊，群头像
 --
-ALTER TABLE `ts_message_list` ADD `logo` INT(11) UNSIGNED NULL DEFAULT NULL COMMENT '群聊头像' AFTER `title`;
+# ALTER TABLE `ts_message_list` ADD `logo` INT(11) UNSIGNED NULL DEFAULT NULL COMMENT '群聊头像' AFTER `title`;
 
 ALTER TABLE `ts_feed_data` CHANGE `feed_data` `feed_data` LONGTEXT CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '关联ts_feed表，动态数据，序列化保存';
 

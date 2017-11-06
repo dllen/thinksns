@@ -20,7 +20,6 @@
 !/data/upload/2015/0[67]15/1[578]/
 /data/
 /_runtime/
-/src/vendor
 /vendor
 /storage
 /composer.lock
@@ -28,3 +27,4 @@ api/ts-api.phar
 api/phar.php
 .DS_Store
 /resources/theme
+.idea/*
