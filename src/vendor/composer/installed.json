@@ -737,6 +737,15 @@
             "reference": "master"
         },
         "type": "library",
-        "installation-source": "source"
+        "installation-source": "source",
+        "autoload": {
+            "files": [
+                "src/core.php",
+                "src/addons/library/alipay/alipay.php"
+            ],
+            "classmap": [
+                "src/"
+            ]
+        }
     }
 ]
