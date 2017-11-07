@@ -12,7 +12,7 @@
 //
 
 /**
- * �
+ * �
  * 容管理.
  * +------------------------------------------------------------------------------.
  *
@@ -20,7 +20,7 @@
  *
  * @version   1.0
  */
-tsload(APPS_PATH.'/admin/Lib/Action/AdministratorAction.class.php');
+tsload(APPS_PATH . '/admin/Lib/Action/AdministratorAction.class.php');
 
 class ContentAction extends AdministratorAction
 {
@@ -46,12 +46,12 @@ class ContentAction extends AdministratorAction
 
         $this->pageButton[] = array('title' => L('PUBLIC_DYNAMIC_SEARCH'), 'onclick' => "admin.fold('search_form')");
         if ($isRec == 0 && $is_audit == 1) {
-            $this->pageButton[] = array('title' => L('PUBLIC_DYNAMIC_DELETE'), 'onclick' => "admin.ContentEdit('','delFeed','".L('PUBLIC_STREAM_DELETE')."','".L('PUBLIC_DYNAMIC')."')");
+            $this->pageButton[] = array('title' => L('PUBLIC_DYNAMIC_DELETE'), 'onclick' => "admin.ContentEdit('','delFeed','" . L('PUBLIC_STREAM_DELETE') . "','" . L('PUBLIC_DYNAMIC') . "')");
         } elseif ($is_Rec == 0 && $is_audit == 0) {
-            $this->pageButton[] = array('title' => '通过', 'onclick' => "admin.ContentEdit('','auditFeed','".'通过'."','".L('PUBLIC_DYNAMIC')."')");
-            $this->pageButton[] = array('title' => '删除', 'onclick' => "admin.ContentEdit('','delFeed','".L('PUBLIC_STREAM_DELETE')."','".L('PUBLIC_DYNAMIC')."')");
+            $this->pageButton[] = array('title' => '通过', 'onclick' => "admin.ContentEdit('','auditFeed','" . '通过' . "','" . L('PUBLIC_DYNAMIC') . "')");
+            $this->pageButton[] = array('title' => '删除', 'onclick' => "admin.ContentEdit('','delFeed','" . L('PUBLIC_STREAM_DELETE') . "','" . L('PUBLIC_DYNAMIC') . "')");
         } else {
-            $this->pageButton[] = array('title' => L('PUBLIC_REMOVE_COMPLETELY'), 'onclick' => "admin.ContentEdit('','deleteFeed','".L('PUBLIC_REMOVE_COMPLETELY')."','".L('PUBLIC_DYNAMIC')."')");
+            $this->pageButton[] = array('title' => L('PUBLIC_REMOVE_COMPLETELY'), 'onclick' => "admin.ContentEdit('','deleteFeed','" . L('PUBLIC_REMOVE_COMPLETELY') . "','" . L('PUBLIC_DYNAMIC') . "')");
         }
 
         $isRec == 1 && $_REQUEST['tabHash'] = 'rec';
@@ -70,16 +70,16 @@ class ContentAction extends AdministratorAction
             $v['uname'] = $v['user_info']['space_link'];
             $v['type'] = $this->opt['type'][$v['type']];
             $v['from'] = $this->from[$v['from']];
-            $v['data'] = '<div style="width:500px;line-height:22px" model-node="feed_list" class="feed_list">'.$v['body'].'  <a target="_blank" href="'.U('public/Profile/feed', array('feed_id' => $v['feed_id'], 'uid' => $v['uid'])).'">'.L('PUBLIC_VIEW_DETAIL').'&raquo;</a></div>';
+            $v['data'] = '<div style="width:500px;line-height:22px" model-node="feed_list" class="feed_list">' . $v['body'] . '  <a target="_blank" href="' . U('public/Profile/feed', array('feed_id' => $v['feed_id'], 'uid' => $v['uid'])) . '">' . L('PUBLIC_VIEW_DETAIL') . '&raquo;</a></div>';
             $v['publish_time'] = date('Y-m-d H:i:s', $v['publish_time']);
             //$v['DOACTION'] = $isRec==0 ? "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['feed_id']},\"delFeed\",\"".L('PUBLIC_STREAM_DELETE')."\",\"".L('PUBLIC_DYNAMIC')."\")'>".L('PUBLIC_STREAM_DELETE')."</a>"
             //							:"<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['feed_id']},\"feedRecover\",\"".L('PUBLIC_RECOVER')."\",\"".L('PUBLIC_DYNAMIC')."\")'>".L('PUBLIC_RECOVER')."</a>";
             if ($isRec == 0 && $is_audit == 1) {
-                $v['DOACTION'] = "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['feed_id']},\"delFeed\",\"".L('PUBLIC_STREAM_DELETE').'","'.L('PUBLIC_DYNAMIC')."\")'>".L('PUBLIC_STREAM_DELETE').'</a>';
+                $v['DOACTION'] = "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['feed_id']},\"delFeed\",\"" . L('PUBLIC_STREAM_DELETE') . '","' . L('PUBLIC_DYNAMIC') . "\")'>" . L('PUBLIC_STREAM_DELETE') . '</a>';
             } elseif ($isRec == 0 && $is_audit == 0) {
-                $v['DOACTION'] = "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['feed_id']},\"auditFeed\",\"".'通过'.'","'.L('PUBLIC_DYNAMIC')."\")'>".'通过'.'</a>&nbsp;|&nbsp;'."<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['feed_id']},\"delFeed\",\"".L('PUBLIC_STREAM_DELETE').'","'.L('PUBLIC_DYNAMIC')."\")'>".L('PUBLIC_STREAM_DELETE').'</a>';
+                $v['DOACTION'] = "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['feed_id']},\"auditFeed\",\"" . '通过' . '","' . L('PUBLIC_DYNAMIC') . "\")'>" . '通过' . '</a>&nbsp;|&nbsp;' . "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['feed_id']},\"delFeed\",\"" . L('PUBLIC_STREAM_DELETE') . '","' . L('PUBLIC_DYNAMIC') . "\")'>" . L('PUBLIC_STREAM_DELETE') . '</a>';
             } else {
-                $v['DOACTION'] = "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['feed_id']},\"feedRecover\",\"".L('PUBLIC_RECOVER').'","'.L('PUBLIC_DYNAMIC')."\")'>".L('PUBLIC_RECOVER').'</a>';
+                $v['DOACTION'] = "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['feed_id']},\"feedRecover\",\"" . L('PUBLIC_RECOVER') . '","' . L('PUBLIC_DYNAMIC') . "\")'>" . L('PUBLIC_RECOVER') . '</a>';
             }
         }
         $this->_listpk = 'feed_id';
@@ -89,16 +89,16 @@ class ContentAction extends AdministratorAction
     //待审列表
     public function feedUnAudit()
     {
-        $this->pageKey = APP_NAME.'_'.MODULE_NAME.'_feed';
-        $this->searchPageKey = 'S_'.$this->pageKey;
+        $this->pageKey = APP_NAME . '_' . MODULE_NAME . '_feed';
+        $this->searchPageKey = 'S_' . $this->pageKey;
         $this->feed(0, 0);
     }
 
     //回收站
     public function feedRec()
     {
-        $this->pageKey = APP_NAME.'_'.MODULE_NAME.'_feed';
-        $this->searchPageKey = 'S_'.$this->pageKey;
+        $this->pageKey = APP_NAME . '_' . MODULE_NAME . '_feed';
+        $this->searchPageKey = 'S_' . $this->pageKey;
         $this->feed(1);
     }
 
@@ -159,8 +159,8 @@ class ContentAction extends AdministratorAction
      *
      * @param bool $isRec 是否是回收站列表
      *
-     * @return array 相�
-     * �数据
+     * @return array 相�
+     * �数据
      */
     public function comment($isRec = false, $is_audit = 1)
     {
@@ -176,12 +176,12 @@ class ContentAction extends AdministratorAction
 
         $this->pageButton[] = array('title' => L('PUBLIC_SEARCH_COMMENT'), 'onclick' => "admin.fold('search_form')");
         if ($isRec == 0 && $is_audit == 1) {
-            $this->pageButton[] = array('title' => L('PUBLIC_DELETE_COMMENT'), 'onclick' => "admin.ContentEdit('','delComment','".L('PUBLIC_STREAM_DELETE')."','".L('PUBLIC_STREAM_COMMENT')."')");
+            $this->pageButton[] = array('title' => L('PUBLIC_DELETE_COMMENT'), 'onclick' => "admin.ContentEdit('','delComment','" . L('PUBLIC_STREAM_DELETE') . "','" . L('PUBLIC_STREAM_COMMENT') . "')");
         } elseif ($is_Rec == 0 && $is_audit == 0) {
-            $this->pageButton[] = array('title' => '通过', 'onclick' => "admin.ContentEdit('','auditComment','".'通过'."','".L('PUBLIC_DYNAMIC')."')");
-            $this->pageButton[] = array('title' => '删除', 'onclick' => "admin.ContentEdit('','delComment','".L('PUBLIC_STREAM_DELETE')."','".L('PUBLIC_DYNAMIC')."')");
+            $this->pageButton[] = array('title' => '通过', 'onclick' => "admin.ContentEdit('','auditComment','" . '通过' . "','" . L('PUBLIC_DYNAMIC') . "')");
+            $this->pageButton[] = array('title' => '删除', 'onclick' => "admin.ContentEdit('','delComment','" . L('PUBLIC_STREAM_DELETE') . "','" . L('PUBLIC_DYNAMIC') . "')");
         } else {
-            $this->pageButton[] = array('title' => L('PUBLIC_REMOVE_COMPLETELY'), 'onclick' => "admin.ContentEdit('','deleteComment','".L('PUBLIC_REMOVE_COMPLETELY')."','".L('PUBLIC_STREAM_COMMENT')."')");
+            $this->pageButton[] = array('title' => L('PUBLIC_REMOVE_COMPLETELY'), 'onclick' => "admin.ContentEdit('','deleteComment','" . L('PUBLIC_REMOVE_COMPLETELY') . "','" . L('PUBLIC_STREAM_COMMENT') . "')");
         }
 
         $isRec == 1 && $_REQUEST['tabHash'] = 'rec';
@@ -199,18 +199,18 @@ class ContentAction extends AdministratorAction
         foreach ($listData['data'] as &$v) {
             $v['uid'] = $v['user_info']['space_link'];
             $v['app_uid'] = $v['sourceInfo']['source_user_info']['space_link'];
-            $v['source_type'] = "<a href='{$v['sourceInfo']['source_url']}' target='_blank'>".$v['sourceInfo']['source_type'].'</a>';
-            $v['content'] = '<div style="width:400px">'.$v['content'].'</div>';
+            $v['source_type'] = "<a href='{$v['sourceInfo']['source_url']}' target='_blank'>" . $v['sourceInfo']['source_type'] . '</a>';
+            $v['content'] = '<div style="width:400px">' . $v['content'] . '</div>';
             $v['client_type'] = $this->from[$v['client_type']];
             $v['ctime'] = date('Y-m-d H:i:s', $v['ctime']);
-            $v['DOACTION'] = $isRec == 0 ? "<a href='".$v['sourceInfo']['source_url']."' target='_blank'>".L('PUBLIC_VIEW')."</a> <a href='javascript:void(0)' onclick='admin.ContentEdit({$v['comment_id']},\"delComment\",\"".L('PUBLIC_STREAM_DELETE').'","'.L('PUBLIC_STREAM_COMMENT')."\")'>".L('PUBLIC_STREAM_DELETE').'</a>'
-                                        : "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['comment_id']},\"CommentRecover\",\"".L('PUBLIC_RECOVER').'","'.L('PUBLIC_STREAM_COMMENT')."\")'>".L('PUBLIC_RECOVER').'</a>';
+            $v['DOACTION'] = $isRec == 0 ? "<a href='" . $v['sourceInfo']['source_url'] . "' target='_blank'>" . L('PUBLIC_VIEW') . "</a> <a href='javascript:void(0)' onclick='admin.ContentEdit({$v['comment_id']},\"delComment\",\"" . L('PUBLIC_STREAM_DELETE') . '","' . L('PUBLIC_STREAM_COMMENT') . "\")'>" . L('PUBLIC_STREAM_DELETE') . '</a>'
+                : "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['comment_id']},\"CommentRecover\",\"" . L('PUBLIC_RECOVER') . '","' . L('PUBLIC_STREAM_COMMENT') . "\")'>" . L('PUBLIC_RECOVER') . '</a>';
             if ($isRec == 0 && $is_audit == 1) {
-                $v['DOACTION'] = "<a href='".$v['sourceInfo']['source_url']."' target='_blank'>".L('PUBLIC_VIEW')."</a> <a href='javascript:void(0)' onclick='admin.ContentEdit({$v['comment_id']},\"delComment\",\"".L('PUBLIC_STREAM_DELETE').'","'.L('PUBLIC_STREAM_COMMENT')."\")'>".L('PUBLIC_STREAM_DELETE').'</a>';
+                $v['DOACTION'] = "<a href='" . $v['sourceInfo']['source_url'] . "' target='_blank'>" . L('PUBLIC_VIEW') . "</a> <a href='javascript:void(0)' onclick='admin.ContentEdit({$v['comment_id']},\"delComment\",\"" . L('PUBLIC_STREAM_DELETE') . '","' . L('PUBLIC_STREAM_COMMENT') . "\")'>" . L('PUBLIC_STREAM_DELETE') . '</a>';
             } elseif ($isRec == 0 && $is_audit == 0) {
-                $v['DOACTION'] = "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['comment_id']},\"auditComment\",\"".'通过'.'","'.L('PUBLIC_STREAM_COMMENT')."\")'>".'通过'.'</a>&nbsp;|&nbsp;'."<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['comment_id']},\"delComment\",\"".L('PUBLIC_STREAM_DELETE').'","'.L('PUBLIC_DYNAMIC')."\")'>".L('PUBLIC_STREAM_DELETE').'</a>';
+                $v['DOACTION'] = "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['comment_id']},\"auditComment\",\"" . '通过' . '","' . L('PUBLIC_STREAM_COMMENT') . "\")'>" . '通过' . '</a>&nbsp;|&nbsp;' . "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['comment_id']},\"delComment\",\"" . L('PUBLIC_STREAM_DELETE') . '","' . L('PUBLIC_DYNAMIC') . "\")'>" . L('PUBLIC_STREAM_DELETE') . '</a>';
             } else {
-                $v['DOACTION'] = "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['comment_id']},\"CommentRecover\",\"".L('PUBLIC_RECOVER').'","'.L('PUBLIC_STREAM_COMMENT')."\")'>".L('PUBLIC_RECOVER').'</a>';
+                $v['DOACTION'] = "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['comment_id']},\"CommentRecover\",\"" . L('PUBLIC_RECOVER') . '","' . L('PUBLIC_STREAM_COMMENT') . "\")'>" . L('PUBLIC_RECOVER') . '</a>';
             }
         }
         $this->_listpk = 'comment_id';
@@ -220,16 +220,16 @@ class ContentAction extends AdministratorAction
     //待审列表
     public function commentUnAudit()
     {
-        $this->pageKey = APP_NAME.'_'.MODULE_NAME.'_comment';
-        $this->searchPageKey = 'S_'.$this->pageKey;
+        $this->pageKey = APP_NAME . '_' . MODULE_NAME . '_comment';
+        $this->searchPageKey = 'S_' . $this->pageKey;
         $this->comment(0, 0);
     }
 
     //回收站
     public function commentRec()
     {
-        $this->pageKey = APP_NAME.'_'.MODULE_NAME.'_comment';
-        $this->searchPageKey = 'S_'.$this->pageKey;
+        $this->pageKey = APP_NAME . '_' . MODULE_NAME . '_comment';
+        $this->searchPageKey = 'S_' . $this->pageKey;
         $this->comment(1);
     }
 
@@ -283,9 +283,9 @@ class ContentAction extends AdministratorAction
         // 批量操作按钮配置
         $this->pageButton[] = array('title' => L('PUBLIC_MASSAGE_SEARCH'), 'onclick' => "admin.fold('search_form')");
         if ($isRec == 0) {
-            $this->pageButton[] = array('title' => L('PUBLIC_MASSAGE_DEL'), 'onclick' => "admin.ContentEdit('','delMessage','".L('PUBLIC_STREAM_DELETE')."','".L('PUBLIC_PRIVATE_MESSAGE')."');");
+            $this->pageButton[] = array('title' => L('PUBLIC_MASSAGE_DEL'), 'onclick' => "admin.ContentEdit('','delMessage','" . L('PUBLIC_STREAM_DELETE') . "','" . L('PUBLIC_PRIVATE_MESSAGE') . "');");
         } else {
-            $this->pageButton[] = array('title' => L('PUBLIC_REMOVE_COMPLETELY'), 'onclick' => "admin.ContentEdit('','deleteMessage','".L('PUBLIC_REMOVE_COMPLETELY')."','".L('PUBLIC_PRIVATE_MESSAGE')."')");
+            $this->pageButton[] = array('title' => L('PUBLIC_REMOVE_COMPLETELY'), 'onclick' => "admin.ContentEdit('','deleteMessage','" . L('PUBLIC_REMOVE_COMPLETELY') . "','" . L('PUBLIC_PRIVATE_MESSAGE') . "')");
         }
         $isRec == 1 && $_REQUEST['tabHash'] = 'rec';
         $this->assign('pageTitle', $isRec ? L('PUBLIC_RECYCLE_BIN') : L('PUBLIC_PRIVATE_MESSAGE_MANAGEMENT'));
@@ -293,7 +293,7 @@ class ContentAction extends AdministratorAction
         $map['a.is_del'] = ($isRec == 1) ? 1 : 0;
         !empty($_POST['from_uid']) && $map['a.from_uid'] = intval($_POST['from_uid']);
         !empty($_POST['mix_man']) && $map['c.member_uid'] = intval($_POST['mix_man']);
-        !empty($_POST['content']) && $map['a.content'] = array('like', '%'.t($_POST['content']).'%');
+        !empty($_POST['content']) && $map['a.content'] = array('like', '%' . t($_POST['content']) . '%');
         $map['b.type'] = array('neq', 3);
         // 获取列表信息
         $listData = model('Message')->getDetailList($map);
@@ -318,10 +318,10 @@ class ContentAction extends AdministratorAction
                 $v['from_uid'] = $uname[$v['from_uid']];
             }
 
-            $v['content'] = '<div style="width:500px">'.getShort($v['content'], 120, '...').'</div>'; // 截取120字
+            $v['content'] = '<div style="width:500px">' . getShort($v['content'], 120, '...') . '</div>'; // 截取120字
             $v['mtime'] = date('Y-m-d H:i:s', $v['mtime']);
-            $v['DOACTION'] = $isRec == 0 ? "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['message_id']},\"delMessage\",\"".L('PUBLIC_STREAM_DELETE').'","'.L('PUBLIC_PRIVATE_MESSAGE')."\");'>".L('PUBLIC_STREAM_DELETE').'</a>'
-                                        : "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['message_id']},\"MessageRecover\",\"".L('PUBLIC_RECOVER').'","'.L('PUBLIC_PRIVATE_MESSAGE')."\")'>".L('PUBLIC_RECOVER').'</a>';
+            $v['DOACTION'] = $isRec == 0 ? "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['message_id']},\"delMessage\",\"" . L('PUBLIC_STREAM_DELETE') . '","' . L('PUBLIC_PRIVATE_MESSAGE') . "\");'>" . L('PUBLIC_STREAM_DELETE') . '</a>'
+                : "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['message_id']},\"MessageRecover\",\"" . L('PUBLIC_RECOVER') . '","' . L('PUBLIC_PRIVATE_MESSAGE') . "\")'>" . L('PUBLIC_RECOVER') . '</a>';
         }
         // 设置操作主键
         $this->_listpk = 'message_id';
@@ -331,8 +331,8 @@ class ContentAction extends AdministratorAction
     //回收站
     public function messageRec()
     {
-        $this->pageKey = APP_NAME.'_'.MODULE_NAME.'_message';
-        $this->searchPageKey = 'S_'.$this->pageKey;
+        $this->pageKey = APP_NAME . '_' . MODULE_NAME . '_message';
+        $this->searchPageKey = 'S_' . $this->pageKey;
         $this->message(1);
     }
 
@@ -369,9 +369,9 @@ class ContentAction extends AdministratorAction
 
         $this->pageButton[] = array('title' => L('PUBLIC_FILE_STREAM_SEARCH'), 'onclick' => "admin.fold('search_form')");
         if ($isRec == 0) {
-            $this->pageButton[] = array('title' => L('PUBLIC_FILE_STREAM_DEL'), 'onclick' => "admin.ContentEdit('','delAttach','".L('PUBLIC_STREAM_DELETE')."','".L('PUBLIC_FILE_STREAM')."');");
+            $this->pageButton[] = array('title' => L('PUBLIC_FILE_STREAM_DEL'), 'onclick' => "admin.ContentEdit('','delAttach','" . L('PUBLIC_STREAM_DELETE') . "','" . L('PUBLIC_FILE_STREAM') . "');");
         } else {
-            $this->pageButton[] = array('title' => L('PUBLIC_REMOVE_COMPLETELY'), 'onclick' => "admin.ContentEdit('','deleteAttach','".L('PUBLIC_REMOVE_COMPLETELY')."','".L('PUBLIC_FILE_STREAM')."')");
+            $this->pageButton[] = array('title' => L('PUBLIC_REMOVE_COMPLETELY'), 'onclick' => "admin.ContentEdit('','deleteAttach','" . L('PUBLIC_REMOVE_COMPLETELY') . "','" . L('PUBLIC_FILE_STREAM') . "')");
         }
 
         $isRec == 1 && $_REQUEST['tabHash'] = 'rec';
@@ -379,7 +379,7 @@ class ContentAction extends AdministratorAction
         $map['is_del'] = $isRec == 1 ? 1 : 0;    //未删除的
         !empty($_POST['attach_id']) && $map['attach_id'] = array('in', explode(',', $_POST['attach_id']));
         $_POST['from'] > 0 && $map['from'] = intval($_POST['from'] - 1);
-        !empty($_POST['name']) && $map['name'] = array('like', '%'.t($_POST['name']).'%');
+        !empty($_POST['name']) && $map['name'] = array('like', '%' . t($_POST['name']) . '%');
 
         $listData = model('Attach')->getAttachList($map, '*', 'attach_id desc', 10);
 
@@ -390,14 +390,14 @@ class ContentAction extends AdministratorAction
             $user = model('User')->getUserInfo($v['uid']);
             $v['uid'] = $user['space_link'];
             $v['name'] = in_array($v['extension'], $image)
-                            ? '<a href="'.U('widget/Upload/down', array('attach_id' => $v['attach_id'])).'">'.
-                                "<img src='".getImageUrl($v['save_path'].$v['save_name'], 225)."' width='100'><br/>{$v['name']}</a>"
-                            : '<a href="'.U('widget/Upload/down', array('attach_id' => $v['attach_id'])).'">'.$v['name'].'</a>';
+                ? '<a href="' . U('widget/Upload/down', array('attach_id' => $v['attach_id'])) . '">' .
+                "<img src='" . getImageUrl($v['save_path'] . $v['save_name'], 225) . "' width='100'><br/>{$v['name']}</a>"
+                : '<a href="' . U('widget/Upload/down', array('attach_id' => $v['attach_id'])) . '">' . $v['name'] . '</a>';
             $v['size'] = byte_format($v['size']);
             $v['from'] = $this->from[$v['from']];
             $v['ctime'] = date('Y-m-d H:i:s', $v['ctime']);
-            $v['DOACTION'] = $isRec == 0 ? "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['attach_id']},\"delAttach\",\"".L('PUBLIC_STREAM_DELETE').'","'.L('PUBLIC_FILE_STREAM')."\");'>".L('PUBLIC_STREAM_DELETE').'</a>'
-                                        : "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['attach_id']},\"AttachRecover\",\"".L('PUBLIC_RECOVER').'","'.L('PUBLIC_FILE_STREAM')."\")'>".L('PUBLIC_RECOVER').'</a>';
+            $v['DOACTION'] = $isRec == 0 ? "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['attach_id']},\"delAttach\",\"" . L('PUBLIC_STREAM_DELETE') . '","' . L('PUBLIC_FILE_STREAM') . "\");'>" . L('PUBLIC_STREAM_DELETE') . '</a>'
+                : "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['attach_id']},\"AttachRecover\",\"" . L('PUBLIC_RECOVER') . '","' . L('PUBLIC_FILE_STREAM') . "\")'>" . L('PUBLIC_RECOVER') . '</a>';
         }
         $this->displayList($listData);
     }
@@ -405,8 +405,8 @@ class ContentAction extends AdministratorAction
     //回收站
     public function attachRec()
     {
-        $this->pageKey = APP_NAME.'_'.MODULE_NAME.'_attach';
-        $this->searchPageKey = 'S_'.$this->pageKey;
+        $this->pageKey = APP_NAME . '_' . MODULE_NAME . '_attach';
+        $this->searchPageKey = 'S_' . $this->pageKey;
         $this->attach(1);
     }
 
@@ -448,9 +448,9 @@ class ContentAction extends AdministratorAction
 
         $this->pageButton[] = array('title' => L('PUBLIC_FILE_STREAM_SEARCH'), 'onclick' => "admin.fold('search_form')");
         if ($is_del == 0) {
-            $this->pageButton[] = array('title' => L('PUBLIC_FILE_STREAM_DEL'), 'onclick' => "admin.ContentEdit('','delVideo','".L('PUBLIC_STREAM_DELETE')."','".L('PUBLIC_FILE_STREAM')."');");
+            $this->pageButton[] = array('title' => L('PUBLIC_FILE_STREAM_DEL'), 'onclick' => "admin.ContentEdit('','delVideo','" . L('PUBLIC_STREAM_DELETE') . "','" . L('PUBLIC_FILE_STREAM') . "');");
         } else {
-            $this->pageButton[] = array('title' => L('PUBLIC_REMOVE_COMPLETELY'), 'onclick' => "admin.ContentEdit('','deleteVideo','".L('PUBLIC_REMOVE_COMPLETELY')."','".L('PUBLIC_FILE_STREAM')."')");
+            $this->pageButton[] = array('title' => L('PUBLIC_REMOVE_COMPLETELY'), 'onclick' => "admin.ContentEdit('','deleteVideo','" . L('PUBLIC_REMOVE_COMPLETELY') . "','" . L('PUBLIC_FILE_STREAM') . "')");
         }
 
         $is_del == 1 && $_REQUEST['tabHash'] = 'rec';
@@ -458,21 +458,29 @@ class ContentAction extends AdministratorAction
         $map['is_del'] = $is_del == 1 ? 1 : 0;    //未删除的
         !empty($_POST['video_id']) && $map['video_id'] = array('in', explode(',', $_POST['video_id']));
         $_POST['from'] > 0 && $map['from'] = intval($_POST['from'] - 1);
-        !empty($_POST['name']) && $map['name'] = array('like', '%'.t($_POST['name']).'%');
+        !empty($_POST['name']) && $map['name'] = array('like', '%' . t($_POST['name']) . '%');
         // $listData = model('Attach')->getAttachList($map,'*','attach_id desc',10);
         $listData = D('video')->where($map)->findPage(20);
 
         foreach ($listData['data'] as &$v) {
             $user = model('User')->getUserInfo($v['uid']);
             $v['uid'] = $user['space_link'];
-            $v['name'] = $v['image_path'] ? '<a target="_blank" href="'.SITE_URL.$v['video_path'].'">'.
-                                "<img src='".SITE_URL.$v['image_path']."' width='100'><br/>{$v['name']}</a>"
-                            : '<a target="_blank" href="'.SITE_URL.$v['video_path'].'">'.$v['name'].'</a>';
+            $videoPath = $v['video_path'];
+            $imagePath = $v['image_path'];
+            if (!starts_with($videoPath, 'http')) {
+                $videoPath = SITE_URL . $videoPath;
+            }
+            if (!starts_with($imagePath, 'http')) {
+                $imagePath = SITE_URL . $imagePath;
+            }
+            $v['name'] = $v['image_path'] ? '<a target="_blank" href="' . $videoPath . '">' .
+                "<img src='" . $imagePath . "' width='100'><br/>{$v['name']}</a>"
+                : '<a target="_blank" href="' . $videoPath . '">' . $v['name'] . '</a>';
             $v['size'] = byte_format($v['size']);
             $v['from'] = $this->from[$v['from']];
             $v['ctime'] = date('Y-m-d H:i:s', $v['ctime']);
-            $v['DOACTION'] = $is_del == 0 ? "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['video_id']},\"delVideo\",\"".L('PUBLIC_STREAM_DELETE').'","'.L('PUBLIC_FILE_STREAM')."\");'>".L('PUBLIC_STREAM_DELETE').'</a>'
-                                        : "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['video_id']},\"VideoRecover\",\"".L('PUBLIC_RECOVER').'","'.L('PUBLIC_FILE_STREAM')."\")'>".L('PUBLIC_RECOVER').'</a>';
+            $v['DOACTION'] = $is_del == 0 ? "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['video_id']},\"delVideo\",\"" . L('PUBLIC_STREAM_DELETE') . '","' . L('PUBLIC_FILE_STREAM') . "\");'>" . L('PUBLIC_STREAM_DELETE') . '</a>'
+                : "<a href='javascript:void(0)' onclick='admin.ContentEdit({$v['video_id']},\"VideoRecover\",\"" . L('PUBLIC_RECOVER') . '","' . L('PUBLIC_FILE_STREAM') . "\")'>" . L('PUBLIC_RECOVER') . '</a>';
         }
         $this->displayList($listData);
     }
@@ -480,8 +488,8 @@ class ContentAction extends AdministratorAction
     //回收站
     public function videoRec()
     {
-        $this->pageKey = APP_NAME.'_'.MODULE_NAME.'_video';
-        $this->searchPageKey = 'S_'.$this->pageKey;
+        $this->pageKey = APP_NAME . '_' . MODULE_NAME . '_video';
+        $this->searchPageKey = 'S_' . $this->pageKey;
         $this->video(1);
     }
 
@@ -535,7 +543,7 @@ class ContentAction extends AdministratorAction
     {
         $list = $_POST['systemdata_list'];
         $key = $_POST['systemdata_key'];
-        $key = $list.':'.$key;
+        $key = $list . ':' . $key;
         $value['ffmpeg_path'] = $_POST['ffmpeg_path'];
         $value['video_server'] = $_POST['video_server'];
         $value['video_ext'] = $_POST['video_ext'];
@@ -575,7 +583,7 @@ class ContentAction extends AdministratorAction
     }
 
     /**
-     * 删除举报回收站�
+     * 删除举报回收站�
      * 容.
      *
      * @return int 是否删除成功
@@ -596,7 +604,7 @@ class ContentAction extends AdministratorAction
     }
 
     /**
-     * 撤销举报�
+     * 撤销举报�
      * 容.
      *
      * @return int 是否撤销成功
@@ -638,7 +646,7 @@ class ContentAction extends AdministratorAction
         //dump($_POST);exit;
         $listData = model('FeedTopicAdmin')->getTopic('', $_REQUEST['recommend']);
         foreach ($listData['data'] as $k => &$v) {
-            $v['note'] = "<div style='width:400px; border:0; margin:0; padding:0;'>".$v['note'].'</div>';
+            $v['note'] = "<div style='width:400px; border:0; margin:0; padding:0;'>" . $v['note'] . '</div>';
         }
         //dump($listData);exit;
         $this->displayList($listData);
@@ -654,7 +662,7 @@ class ContentAction extends AdministratorAction
         $this->pageTab[] = array('title' => '推荐话题', 'tabHash' => 'recommendTopic', 'url' => U('admin/Content/topic', array('recommend' => 1)));
         $this->pageTab[] = array('title' => '添加话题', 'tabHash' => 'addTopic', 'url' => U('admin/Content/addTopic'));
         $this->pageKeyList = array('topic_name', 'note', 'domain', 'des', 'pic', 'topic_user', 'outlink', 'recommend');
-        $topic['domain'] = SITE_URL.'/topics/'.'<input type="text" value="" name="domain" id="form_domain">';
+        $topic['domain'] = SITE_URL . '/topics/' . '<input type="text" value="" name="domain" id="form_domain">';
         $this->opt['recommend'] = array('1' => '是', '0' => '否');
         //$this->opt['essence'] = array('1'=>'是','0'=>'否');
         $this->notEmpty = array('topic_name', 'note');
@@ -754,13 +762,13 @@ class ContentAction extends AdministratorAction
         $this->pageKeyList = array('topic_id', 'topic_name', 'note', 'domain', 'des', 'pic', 'topic_user', 'outlink', 'recommend');
         $this->opt['recommend'] = array('1' => '是', '0' => '否');
         //$this->opt['essence'] = array('1'=>'是','0'=>'否');
-        $topic = model('FeedTopic')->where('topic_id='.intval($_GET['topic_id']))->find();
+        $topic = model('FeedTopic')->where('topic_id=' . intval($_GET['topic_id']))->find();
         if ($topic['pic']) {
-            $pic = D('attach')->where('attach_id='.$topic['pic'])->find();
-            $pic_url = $pic['save_path'].$pic['save_name'];
+            $pic = D('attach')->where('attach_id=' . $topic['pic'])->find();
+            $pic_url = $pic['save_path'] . $pic['save_name'];
             $topic['pic_url'] = getImageUrl($pic_url);
         }
-        $topic['domain'] = SITE_URL.'/topics/'.'<input type="text" value="'.$topic['domain'].'" name="domain" id="form_domain">';
+        $topic['domain'] = SITE_URL . '/topics/' . '<input type="text" value="' . $topic['domain'] . '" name="domain" id="form_domain">';
         $this->notEmpty = array('note');
         $this->savePostUrl = U('admin/Content/doEditTopic');
         $this->onsubmit = 'admin.topicCheck(this)';
@@ -799,16 +807,16 @@ class ContentAction extends AdministratorAction
         $data['outlink'] = t($_POST['outlink']);
         $data['recommend'] = intval($_POST['recommend']);
         if ($data['recommend'] == 1) {
-            if (!D('feed_topic')->where('topic_id='.intval($_POST['topic_id']))->getField('recommend_time')) {
+            if (!D('feed_topic')->where('topic_id=' . intval($_POST['topic_id']))->getField('recommend_time')) {
                 $data['recommend_time'] = time();
             }
         } else {
-            if (D('feed_topic')->where('topic_id='.intval($_POST['topic_id']))->getField('recommend_time')) {
+            if (D('feed_topic')->where('topic_id=' . intval($_POST['topic_id']))->getField('recommend_time')) {
                 $data['recommend_time'] = 0;
             }
         }
         $data['essence'] = intval($_POST['essence']);
-        $res = D('feed_topic')->where('topic_id='.intval($_POST['topic_id']))->save($data);
+        $res = D('feed_topic')->where('topic_id=' . intval($_POST['topic_id']))->save($data);
         if ($res !== false) {
             $this->assign('jumpUrl', U('admin/Content/topic'));
             $this->success(L('PUBLIC_SYSTEM_MODIFY_SUCCESS'));
@@ -827,7 +835,7 @@ class ContentAction extends AdministratorAction
         $this->pageTab[] = array('title' => '模板管理', 'tabHash' => 'template', 'url' => U('admin/Content/template'));
         $this->pageTab[] = array('title' => '添加模板', 'tabHash' => 'upTemplate', 'url' => U('admin/Content/upTemplate'));
 
-        $this->pageButton[] = array('title' => '添加模板', 'onclick' => "location.href='".U('admin/Content/upTemplate')."'");
+        $this->pageButton[] = array('title' => '添加模板', 'onclick' => "location.href='" . U('admin/Content/upTemplate') . "'");
         $this->pageButton[] = array('title' => '删除模板', 'onclick' => 'admin.delTemplate()');
 
         $this->pageKeyList = array('tpl_id', 'name', 'alias', 'title', 'body', 'lang', 'type', 'type2', 'is_cache', 'ctime', 'DOACTION');
@@ -836,7 +844,7 @@ class ContentAction extends AdministratorAction
         foreach ($listData['data'] as &$value) {
             $value['is_cache'] = ($value['is_cache'] == 1) ? '是' : '否';
             $value['ctime'] = date('Y-m-d H:i:s', $value['ctime']);
-            $value['DOACTION'] = '<a href="'.U('admin/Content/upTemplate', array('tpl_id' => $value['tpl_id'])).'">编辑</a>&nbsp;-&nbsp;<a href="javascript:;" onclick="admin.delTemplate('.$value['tpl_id'].')">删除</a>';
+            $value['DOACTION'] = '<a href="' . U('admin/Content/upTemplate', array('tpl_id' => $value['tpl_id'])) . '">编辑</a>&nbsp;-&nbsp;<a href="javascript:;" onclick="admin.delTemplate(' . $value['tpl_id'] . ')">删除</a>';
         }
 
         $this->displayList($listData);
