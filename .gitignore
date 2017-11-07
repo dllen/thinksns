@@ -21,6 +21,7 @@
 /data/
 /_runtime/
 /vendor
+/src/vendor
 /storage
 /composer.lock
 api/ts-api.phar
