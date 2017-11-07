@@ -9,8 +9,8 @@ use Ts\AutoLoader\TsAutoLoader;
 require_once 'Paginator.php';
 
 /**
- * 新�
- * �口核心.
+ * 新
+ * 口核心.
  *
  * @author Seven Du <lovevipdsw@vip.qq.com>
  **/
@@ -52,8 +52,8 @@ final class Ts
     protected static $_classLoader;
 
     /**
-     * �
-     * �口文件.
+     *
+     *  入口文件.
      *
      * @param \Composer\Autoload\ClassLoader $classLoader
      *
@@ -103,7 +103,7 @@ final class Ts
         set_exception_handler(function ($exception) {
             if (!TS_APP_DEV) {
                 $message = $exception->getMessage();
-                include THEME_PATH.'/system_message.html';
+                include THEME_PATH . '/system_message.html';
                 exit;
             }
             var_dump($exception);
@@ -120,7 +120,7 @@ final class Ts
 
         /* 初始化数据库 */
         self::$capsule = new Capsule();
-        self::$capsule->addConnection((array) include TS_CONFIGURE.'/database.php');
+        self::$capsule->addConnection((array)include TS_CONFIGURE . '/database.php');
         self::$capsule->setEventDispatcher(new Dispatcher(new Container()));
         // Make this Capsule instance available globally via static methods... (optional)
         self::$capsule->setAsGlobal();
@@ -138,9 +138,9 @@ final class Ts
      * 文件加载类.
      *
      * @param string $name 文件名
-     * @param string $ext  文件拓展名
-     * @param param [param ...] 按�
-     * �完整路径的层级，最后一个默认为拓展名
+     * @param string $ext 文件拓展名
+     * @param param [param ...]
+     * 完整路径的层级，最后一个默认为拓展名
      *
      * @return bool
      *

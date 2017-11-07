@@ -10,7 +10,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/medz/composer-vendor-install-folders/zipball/ba8874bd63caffb1280d5e997225910c4541cb69",
+            "url": "https://files.phpcomposer.com/files/medz/composer-vendor-install-folders/ba8874bd63caffb1280d5e997225910c4541cb69.zip",
             "reference": "ba8874bd63caffb1280d5e997225910c4541cb69",
             "shasum": ""
         },
@@ -80,7 +80,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/filesystem/zipball/5e3af878f144089faddd4060a48cadae4fc44dee",
+            "url": "https://files.phpcomposer.com/files/symfony/filesystem/5e3af878f144089faddd4060a48cadae4fc44dee.zip",
             "reference": "5e3af878f144089faddd4060a48cadae4fc44dee",
             "shasum": ""
         },
@@ -131,7 +131,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/medz/filesystem/zipball/ac6da08133439743b1493258ac9dfc447ca471ba",
+            "url": "https://files.phpcomposer.com/files/medz/filesystem/ac6da08133439743b1493258ac9dfc447ca471ba.zip",
             "reference": "ac6da08133439743b1493258ac9dfc447ca471ba",
             "shasum": ""
         },
@@ -182,7 +182,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/medz/emoji-format/zipball/4cabe1fdda2695af355c167e615709751c129325",
+            "url": "https://files.phpcomposer.com/files/medz/emoji-format/4cabe1fdda2695af355c167e615709751c129325.zip",
             "reference": "4cabe1fdda2695af355c167e615709751c129325",
             "shasum": ""
         },
@@ -240,7 +240,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296",
+            "url": "https://files.phpcomposer.com/files/symfony/polyfill-mbstring/2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296.zip",
             "reference": "2ec8b39c38cb16674bbf3fea2b6ce5bf117e1296",
             "shasum": ""
         },
@@ -301,7 +301,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/symfony/translation/zipball/409bf229cd552bf7e3faa8ab7e3980b07672073f",
+            "url": "https://files.phpcomposer.com/files/symfony/translation/409bf229cd552bf7e3faa8ab7e3980b07672073f.zip",
             "reference": "409bf229cd552bf7e3faa8ab7e3980b07672073f",
             "shasum": ""
         },
@@ -368,7 +368,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/briannesbitt/Carbon/zipball/7cdf42c0b1cc763ab7e4c33c47a24e27c66bfccc",
+            "url": "https://files.phpcomposer.com/files/briannesbitt/Carbon/7cdf42c0b1cc763ab7e4c33c47a24e27c66bfccc.zip",
             "reference": "7cdf42c0b1cc763ab7e4c33c47a24e27c66bfccc",
             "shasum": ""
         },
@@ -424,7 +424,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/support/zipball/205a132f7d5e5222d23e17d49ad922bf349d240e",
+            "url": "https://files.phpcomposer.com/files/illuminate/support/205a132f7d5e5222d23e17d49ad922bf349d240e.zip",
             "reference": "205a132f7d5e5222d23e17d49ad922bf349d240e",
             "shasum": ""
         },
@@ -478,7 +478,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/container/zipball/5b76abf9138fe1ad99788944e0561ebc655a254f",
+            "url": "https://files.phpcomposer.com/files/illuminate/container/5b76abf9138fe1ad99788944e0561ebc655a254f.zip",
             "reference": "5b76abf9138fe1ad99788944e0561ebc655a254f",
             "shasum": ""
         },
@@ -526,7 +526,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/events/zipball/4e83ee4f255ec084d510e533ef8e98961aae8729",
+            "url": "https://files.phpcomposer.com/files/illuminate/events/4e83ee4f255ec084d510e533ef8e98961aae8729.zip",
             "reference": "4e83ee4f255ec084d510e533ef8e98961aae8729",
             "shasum": ""
         },
@@ -577,7 +577,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/illuminate/database/zipball/d6c2bffdc04d2d73b6ae82aab10647ddbda1daab",
+            "url": "https://files.phpcomposer.com/files/illuminate/database/d6c2bffdc04d2d73b6ae82aab10647ddbda1daab.zip",
             "reference": "d6c2bffdc04d2d73b6ae82aab10647ddbda1daab",
             "shasum": ""
         },
@@ -640,7 +640,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/jpush/jpush-api-php-client/zipball/921b491fa36e96d58431cefade5f4782d09690e4",
+            "url": "https://files.phpcomposer.com/files/jpush/jpush-api-php-client/921b491fa36e96d58431cefade5f4782d09690e4.zip",
             "reference": "921b491fa36e96d58431cefade5f4782d09690e4",
             "shasum": ""
         },
@@ -675,77 +675,6 @@
         "homepage": "https://github.com/jpush/jpush-api-php-client"
     },
     {
-        "name": "zhiyicx/thinksns-old-code",
-        "version": "v1.0.37",
-        "version_normalized": "1.0.37.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/zhiyicx/thinksns-old-code.git",
-            "reference": "d5d64bb7dc55d804a89bb8937be2ca51b653cefa"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/zhiyicx/thinksns-old-code/zipball/d5d64bb7dc55d804a89bb8937be2ca51b653cefa",
-            "reference": "d5d64bb7dc55d804a89bb8937be2ca51b653cefa",
-            "shasum": ""
-        },
-        "require": {
-            "ext-curl": "*",
-            "ext-gd": "*",
-            "ext-iconv": "*",
-            "ext-json": "*",
-            "ext-mcrypt": "*",
-            "ext-zip": "*",
-            "ext-zlib": "*",
-            "php": ">=5.3.12"
-        },
-        "time": "2017-10-16T01:58:01+00:00",
-        "type": "library",
-        "installation-source": "dist",
-        "autoload": {
-            "files": [
-                "src/core.php",
-                "src/addons/library/alipay/alipay.php"
-            ],
-            "classmap": [
-                "src/"
-            ]
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Seven Du",
-                "email": "lovevipdsw@outlook.com",
-                "homepage": "http://medz.cn",
-                "role": "Developer"
-            },
-            {
-                "name": "智艺创想",
-                "homepage": "http://www.zhiyicx.com",
-                "role": "Development company"
-            },
-            {
-                "name": "The ThinkSNS Team",
-                "email": "support@zhishisoft.com",
-                "homepage": "http://www.thinksns.com",
-                "role": "R & D team"
-            }
-        ],
-        "description": "ThinkSNS老的核心代码",
-        "homepage": "http://www.thinksns.com",
-        "keywords": [
-            "SNS",
-            "t4",
-            "think",
-            "thinksns",
-            "ts",
-            "ts4"
-        ]
-    },
-    {
         "name": "zhiyicx/thinksns-theme-stv1",
         "version": "v1.0.15",
         "version_normalized": "1.0.15.0",
@@ -756,7 +685,7 @@
         },
         "dist": {
             "type": "zip",
-            "url": "https://api.github.com/repos/zhiyicx/thinksns-theme-stv1/zipball/e891698906d6a5f6acb78041ac0759194662a4a1",
+            "url": "https://files.phpcomposer.com/files/zhiyicx/thinksns-theme-stv1/e891698906d6a5f6acb78041ac0759194662a4a1.zip",
             "reference": "e891698906d6a5f6acb78041ac0759194662a4a1",
             "shasum": ""
         },
@@ -797,5 +726,17 @@
             "ts",
             "ts4"
         ]
+    },
+    {
+        "name": "dllen/thinksns-old-code",
+        "version": "master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/dllen/thinksns-old-code.git",
+            "reference": "master"
+        },
+        "type": "library",
+        "installation-source": "source"
     }
 ]

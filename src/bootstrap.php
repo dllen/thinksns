@@ -71,7 +71,7 @@ if (file_exists(sprintf('%s/bootstrap.php', APP_PATH))) {
     Ts::import(APP_PATH, 'bootstrap', '.php');
 
     /*
-     * �    �容旧的应用
+     * 兼容旧的应用
      */
 } elseif (file_exists(sprintf('%s/common.php', APP_COMMON_PATH))) {
     Ts::import(APP_COMMON_PATH, 'common', '.php');
