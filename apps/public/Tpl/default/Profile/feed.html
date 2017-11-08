@@ -99,7 +99,11 @@
                   <p>{$feedInfo.content_txt|replaceUrl|parse_html}</p>
                   <div id="video_box_{$feedInfo.feed_id}" class="mt10"></div>
                   <php>if($feedInfo['videoInfo']['video_id']){</php>
-                  <script type="text/javascript"> $("#video_box_{$feedInfo['feed_id']}").html(showFlash_upload("","{:SITE_URL.$feedInfo['videoInfo']['video_path']}", "{$feedInfo['videoInfo']['image_path']}", 528)); </script>
+                      <php>if(strrpos($feedInfo['videoInfo']['video_path'], 'http')===0){</php>
+                        <script type="text/javascript"> $("#video_box_{$feedInfo['feed_id']}").html(showFlash_upload("","{$feedInfo['videoInfo']['video_path']}", "{$feedInfo['videoInfo']['image_path']}", 528)); </script>
+                      <php>}else{</php>
+                        <script type="text/javascript"> $("#video_box_{$feedInfo['feed_id']}").html(showFlash_upload("","{:SITE_URL.$feedInfo['videoInfo']['video_path']}", "{$feedInfo['videoInfo']['image_path']}", 528)); </script>
+                     <php>}</php>
                   <php>}else{</php>
                   <script type="text/javascript"> $("#video_box_{$feedInfo['feed_id']}").html(showFlash_online("{$feedInfo['videoInfo']['host']}","{$feedInfo['videoInfo']['flashvar']}", 528)); </script>
                   <php>}</php>
