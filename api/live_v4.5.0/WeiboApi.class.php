@@ -8,8 +8,8 @@ class WeiboApi extends Api
      */
 
     /**
-     * 获取�
-     * �站最新发布微博 --using.
+     * 获取�
+     * �站最新发布微博 --using.
      *
      * @param
      *        	integer max_id 上次返回的最后一条微博ID
@@ -49,8 +49,8 @@ class WeiboApi extends Api
     }
 
     /**
-     * 获取当前用户所�
-     * �注的用户发布的微博 --using.
+     * 获取当前用户所�
+     * �注的用户发布的微博 --using.
      *
      * @param
      *        	integer max_id 上次返回的最后一条微博ID
@@ -91,12 +91,12 @@ class WeiboApi extends Api
     }
 
     /**
-     * 获取当前用户所�
-     * �注频道分类下的微博 --using.
+     * 获取当前用户所�
+     * �注频道分类下的微博 --using.
      *
      * @param
-     *        	integer cid 频道ID(可选,0或null为�
-     * �部)
+     *        	integer cid 频道ID(可选,0或null为�
+     * �部)
      * @param
      *        	integer max_id 上次返回的最后一条微博ID
      * @param
@@ -159,7 +159,7 @@ class WeiboApi extends Api
      * @param
      *        	integer type 微博类型 'post','repost','postimage','postfile','postvideo'
      *
-     * @return array 话题详�
+     * @return array 话题详�
      */
     public function topic_timeline()
     {
@@ -292,7 +292,7 @@ class WeiboApi extends Api
     }
 
     /**
-     * 某条微博详细�
+     * 某条微博详细�
      * 容 --using.
      *
      * @param
@@ -439,15 +439,15 @@ class WeiboApi extends Api
      * 发布一条微博 --using.
      *
      * @param
-     *        	string content 微博�
+     *        	string content 微博�
      * 容
      * @param float  $latitude
      *                          纬度
      * @param float  $longitude
      *                          经度
      * @param string $address
-     *                          �
-     * �体地址
+     *                          �
+     * �体地址
      * @param
      *        	integer from 来源(2-android 3-iphone)
      * @param
@@ -604,15 +604,15 @@ class WeiboApi extends Api
      * @param file $_FILE
      *                    图片
      * @param
-     *        	string content 微博�
+     *        	string content 微博�
      * 容
      * @param float  $latitude
      *                          纬度
      * @param float  $longitude
      *                          经度
      * @param string $address
-     *                          �
-     * �体地址
+     *                          �
+     * �体地址
      * @param
      *        	integer from 来源(2-android 3-iphone)
      * @param
@@ -652,15 +652,15 @@ class WeiboApi extends Api
      * @param file $_FILE
      *                    视频
      * @param
-     *        	string content 微博�
+     *        	string content 微博�
      * 容
      * @param float  $latitude
      *                          纬度
      * @param float  $longitude
      *                          经度
      * @param string $address
-     *                          �
-     * �体地址
+     *                          �
+     * �体地址
      * @param
      *        	integer from 来源(2-android 3-iphone)
      * @param
@@ -745,15 +745,15 @@ class WeiboApi extends Api
      * @param
      *        	integer feed_id 微博ID
      * @param
-     *        	string content 转发�
+     *        	string content 转发�
      * 容
      * @param float  $latitude
      *                          纬度
      * @param float  $longitude
      *                          经度
      * @param string $address
-     *                          �
-     * �体地址
+     *                          �
+     * �体地址
      * @param
      *        	integer from 来源(2-android 3-iPhone)
      *
@@ -815,7 +815,7 @@ class WeiboApi extends Api
      * @param
      *        	integer to_comment_id 评论ID
      * @param
-     *        	string content 评论�
+     *        	string content 评论�
      * 容
      * @param
      *        	integer from 来源(2-android 3-iPhone)
@@ -1166,8 +1166,8 @@ class WeiboApi extends Api
     }
 
     /**
-     * ******** 用户相�
-     * �微博信息列表API *********.
+     * ******** 用户相�
+     * �微博信息列表API *********.
      */
 
     /**
@@ -1304,21 +1304,21 @@ class WeiboApi extends Api
     }
 
     /**
-     * ******** 搜索相�
-     * �的接口API *********.
+     * ******** 搜索相�
+     * �的接口API *********.
      */
 
     /**
-     * 按�
-     * �键字搜索微博 --using.
+     * 按�
+     * �键字搜索微博 --using.
      *
      * @param
      *        	integer max_id 上次返回的最后一条收藏ID
      * @param
      *        	integer count 微博条数
      * @param
-     *        	varchar key �
-     * �键字
+     *        	varchar key �
+     * �键字
      * @param
      *        	integer type 微博类型 'post','repost','postimage','postfile','postvideo'
      *
@@ -1374,8 +1374,8 @@ class WeiboApi extends Api
      * @param
      *        	integer count 微博条数
      * @param
-     *        	varchar key �
-     * �键字
+     *        	varchar key �
+     * �键字
      * @param
      *        	integer type 微博类型 'post','repost','postimage','postfile','postvideo'
      *
@@ -1428,8 +1428,8 @@ class WeiboApi extends Api
      * 搜索@最近联系人 --using.
      *
      * @param
-     *        	varchar key �
-     * �键字
+     *        	varchar key �
+     * �键字
      * @param
      *        	integer max_id 上次返回的最后一条用户UID
      * @param
@@ -1522,8 +1522,8 @@ class WeiboApi extends Api
      * 搜索话题 --using.
      *
      * @param
-     *        	varchar key �
-     * �键字
+     *        	varchar key �
+     * �键字
      * @param
      *        	integer max_id 上次返回的最后一条话题ID
      * @param
@@ -1559,8 +1559,8 @@ class WeiboApi extends Api
     }
 
     /**
-     * ******** 用户的相�
-     * �微博--将合并 @我的、评论我的等等微博列表 *********.
+     * ******** 用户的相�
+     * �微博--将合并 @我的、评论我的等等微博列表 *********.
      */
 
     /**
@@ -1629,16 +1629,16 @@ class WeiboApi extends Api
     }
 
     /**
-     * 与我相�
-     * �.
+     * 与我相�
+     * �.
      *
      * @param
      *        	integer max_id 上次返回的最后一条atme_id
      * @param`
      *        	integer count @条数
      *
-     * @return array 与我相�
-     * �列表
+     * @return array 与我相�
+     * �列表
      */
     public function user_related()
     {
@@ -1819,9 +1819,9 @@ class WeiboApi extends Api
     }
 
     /**
-     * ******** �
-     * �他�
-     * �用操作API *********.
+     * ******** �
+     * �他�
+     * �用操作API *********.
      */
 
     /**
@@ -1900,7 +1900,7 @@ class WeiboApi extends Api
     }
 
     /**
-     * 获取微博详�
+     * 获取微博详�
      * --using.
      *
      * @param
@@ -2011,14 +2011,14 @@ class WeiboApi extends Api
                         $_attach['attach_origin_width'] = $av['width'];
                         $_attach['attach_origin_height'] = $av['height'];
                         if ($av['width'] > 384 && $av['height'] > 384) {
-                            //$_attach['attach_middle'] = getImageUrl($av['save_path'].$av['save_name'], 384, 384, true);
-                            $_attach['attach_middle'] = UPLOAD_URL.getThumbImage(UPLOAD_URL.$av['save_path'].$av['save_name'], 384)['src'];
+                            $middle_img = getThumbImage(UPLOAD_URL.$av['save_path'].$av['save_name'], 384)['src'];
+                            $_attach['attach_middle'] = starts_with($middle_img,'http')? $middle_img : UPLOAD_URL.$middle_img;
                         } else {
                             $_attach['attach_middle'] = $_attach['attach_origin'];
                         }
                         if ($av['width'] > 220 && $av['height'] > 220) {
-                            //$_attach['attach_small'] = getImageUrl($av['save_path'].$av['save_name'], 220, 220, true);
-                            $_attach['attach_small'] = UPLOAD_URL.getThumbImage(UPLOAD_URL.$av['save_path'].$av['save_name'], 220)['src'];
+                            $small_img = getThumbImage(UPLOAD_URL.$av['save_path'].$av['save_name'], 220)['src'];
+                            $_attach['attach_small'] = starts_with($small_img,'http')? $small_img : UPLOAD_URL.$small_img;
                         } else {
                             $_attach['attach_small'] = $_attach['attach_origin'];
                         }
