@@ -313,16 +313,16 @@ class UserApi extends Api
      * @param varchar $uname
      *                         用户名
      * @param varchar $key
-     *                         搜索�
-     * �键字
+     *                         搜索�
+     * �键字
      * @param int $max_id
-     *                         上次返回的最后一条�
-     * �注ID
+     *                         上次返回的最后一条�
+     * �注ID
      * @param int $count
      *                   粉丝个数
      *
-     * @return array 用户信息+�
-     * �注状态
+     * @return array 用户信息+�
+     * �注状态
      */
     public function user_follower()
     {
@@ -389,25 +389,25 @@ class UserApi extends Api
     }
 
     /**
-     * 用户�
-     * �注列表 --using.
+     * 用户�
+     * �注列表 --using.
      *
      * @param int     $user_id
      *                         用户UID
      * @param varchar $uname
      *                         用户名
      * @param varchar $key
-     *                         搜索�
-     * �键字
+     *                         搜索�
+     * �键字
      * @param int $max_id
-     *                         上次返回的最后一条�
-     * �注ID
+     *                         上次返回的最后一条�
+     * �注ID
      * @param int $count
-     *                         �
-     * �注个数
+     *                         �
+     * �注个数
      *
-     * @return array 用户信息+�
-     * �注状态
+     * @return array 用户信息+�
+     * �注状态
      */
     public function user_following()
     {
@@ -471,24 +471,24 @@ class UserApi extends Api
     }
 
     /**
-     * 用户好友列表(相互�
-     * �注) --using.
+     * 用户好友列表(相互�
+     * �注) --using.
      *
      * @param int     $user_id
      *                         用户UID
      * @param varchar $uname
      *                         用户名
      * @param varchar $key
-     *                         搜索�
-     * �键字
+     *                         搜索�
+     * �键字
      * @param int $max_id
-     *                         上次返回的最后一条�
-     * �注ID
+     *                         上次返回的最后一条�
+     * �注ID
      * @param int $count
      *                   好友个数
      *
-     * @return array 用户信息+�
-     * �注状态
+     * @return array 用户信息+�
+     * �注状态
      */
     public function user_friend()
     {
@@ -550,21 +550,21 @@ class UserApi extends Api
     }
 
     /**
-     * 按字母返回用户好友列表(相互�
-     * �注) --using.
+     * 按字母返回用户好友列表(相互�
+     * �注) --using.
      *
      * @param int    $user_id
      *                        用户UID
      * @param string $uname
      *                        用户名
      * @param string $key
-     *                        �
-     * �键字
+     *                        �
+     * �键字
      * @param
      *        	integer max_id 上次返回的最后一条uid
      *
-     * @return array 用户信息+�
-     * �注状态
+     * @return array 用户信息+�
+     * �注状态
      */
     public function user_friend_by_letter()
     {
@@ -732,8 +732,8 @@ class UserApi extends Api
      * @param int $count
      *                    图片个数
      *
-     * @return array �
-     * �片列表
+     * @return array �
+     * �片列表
      */
     public function user_photo($uid_param)
     {
@@ -835,7 +835,7 @@ class UserApi extends Api
                 if ($tmp['transfer_id'] && !D('video_transfer')->where('transfer_id='.$tmp['transfer_id'])->getField('status')) {
                     $video_list[$k]['transfering'] = 1;
                 } else {
-                    $video_list[$k]['flashvar'] = $tmp['video_mobile_path'] ? $video_server.$tmp['video_mobile_path'] : $video_server.$tmp['video_path'];
+                    $video_list[$k]['flashvar'] = $tmp['video_mobile_path'] ? $this->getVideoPath($tmp['video_mobile_path'], $video_server) : $this->getVideoPath($tmp['video_path'], $video_server);
                 }
             } else {
                 $video_list[$k]['flashimg'] = UPLOAD_URL.'/'.$tmp['flashimg'];
@@ -845,6 +845,15 @@ class UserApi extends Api
         }
 
         return $video_list;
+    }
+
+    function getVideoPath($path, $videoServer)
+    {
+        if(starts_with($path, 'http')){
+            return $path;
+        }else{
+            return $videoServer.$path;
+        }
     }
 
     /**
@@ -990,8 +999,8 @@ class UserApi extends Api
 
     /**
      * 上传头像 --using
-     * 传�
-     * �的头像变量 $_FILES['Filedata'].
+     * 传�
+     * �的头像变量 $_FILES['Filedata'].
      *
      * @return array 状态+提示
      */
@@ -1413,15 +1422,15 @@ class UserApi extends Api
     }
 
     /**
-     * �
-     * �注一个用户 --using.
+     * �
+     * �注一个用户 --using.
      *
      * @param
-     *        	integer user_id 要�
-     * �注的用户ID
+     *        	integer user_id 要�
+     * �注的用户ID
      *
-     * @return array 状态+提示+�
-     * �注状态
+     * @return array 状态+提示+�
+     * �注状态
      */
     public function follow()
     {
@@ -1450,15 +1459,15 @@ class UserApi extends Api
     }
 
     /**
-     * 取消�
-     * �注一个用户 --using.
+     * 取消�
+     * �注一个用户 --using.
      *
      * @param
-     *        	integer user_id 要�
-     * �注的用户ID
+     *        	integer user_id 要�
+     * �注的用户ID
      *
-     * @return array 状态+提示+�
-     * �注状态
+     * @return array 状态+提示+�
+     * �注状态
      */
     public function unfollow()
     {
@@ -1486,7 +1495,7 @@ class UserApi extends Api
     }
 
     /**
-     * 用户第三方帐号绑定�
+     * 用户第三方帐号绑定�
      * 况 --using.
      *
      * @return 第三方列表及是否绑定
