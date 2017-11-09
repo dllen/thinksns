@@ -8,15 +8,15 @@ class WeiboApi extends Api
      */
 
     /**
-     * 获取�
-     * �站最新发布微博 --using.
+     * 获取�
+     * �站最新发布微博 --using.
      *
      * @param
-     *        	integer max_id 上次返回的最后一条微博ID
+     *            integer max_id 上次返回的最后一条微博ID
      * @param
-     *        	integer count 微博条数
+     *            integer count 微博条数
      * @param
-     *        	varchar type 微博类型 'post','repost','postimage','postfile','postvideo'
+     *            varchar type 微博类型 'post','repost','postimage','postfile','postvideo'
      *
      * @return array 微博列表
      */
@@ -29,9 +29,9 @@ class WeiboApi extends Api
         // 动态类型
         $type = $this->data['type'];
         if (in_array($type, array(
-                'postimage',
-                // 'postfile',
-                'postvideo',
+            'postimage',
+            // 'postfile',
+            'postvideo',
         ))) {
             $where .= " AND type='{$type}' ";
         } elseif ($type == 'post') {
@@ -49,15 +49,15 @@ class WeiboApi extends Api
     }
 
     /**
-     * 获取当前用户所�
-     * �注的用户发布的微博 --using.
+     * 获取当前用户所�
+     * �注的用户发布的微博 --using.
      *
      * @param
-     *        	integer max_id 上次返回的最后一条微博ID
+     *            integer max_id 上次返回的最后一条微博ID
      * @param
-     *        	integer count 微博条数
+     *            integer count 微博条数
      * @param
-     *        	varchar type 微博类型 'post','repost','postimage','postfile','postvideo'
+     *            varchar type 微博类型 'post','repost','postimage','postfile','postvideo'
      *
      * @return array 微博列表
      */
@@ -70,9 +70,9 @@ class WeiboApi extends Api
         // 动态类型
         $type = $this->data['type'];
         if (in_array($type, array(
-                'postimage',
-                // 'postfile',
-                'postvideo',
+            'postimage',
+            // 'postfile',
+            'postvideo',
         ))) {
             $where .= " AND a.type='{$type}' ";
         } elseif ($type == 'post') {
@@ -91,18 +91,18 @@ class WeiboApi extends Api
     }
 
     /**
-     * 获取当前用户所�
-     * �注频道分类下的微博 --using.
+     * 获取当前用户所�
+     * �注频道分类下的微博 --using.
      *
      * @param
-     *        	integer cid 频道ID(可选,0或null为�
-     * �部)
+     *            integer cid 频道ID(可选,0或null为�
+     * �部)
      * @param
-     *        	integer max_id 上次返回的最后一条微博ID
+     *            integer max_id 上次返回的最后一条微博ID
      * @param
-     *        	integer count 微博条数
+     *            integer count 微博条数
      * @param
-     *        	varchar type 微博类型 'post','repost','postimage','postfile','postvideo'
+     *            varchar type 微博类型 'post','repost','postimage','postfile','postvideo'
      *
      * @return array 指定频道分类下的微博列表
      */
@@ -121,16 +121,16 @@ class WeiboApi extends Api
         $cid = intval($this->data['cid']);
         $where = 'c.status = 1';
         if ($cid && in_array($cid, $cids)) {
-            $where .= ' AND c.channel_category_id = '.intval($cid);
+            $where .= ' AND c.channel_category_id = ' . intval($cid);
         } else {
-            $where .= ' AND c.channel_category_id in ('.implode(',', $cids).')';
+            $where .= ' AND c.channel_category_id in (' . implode(',', $cids) . ')';
         }
         !empty($max_id) && $where .= " AND c.feed_id < {$max_id}";
         $type = $this->data['type'];
         if (in_array($type, array(
-                'postimage',
-                // 'postfile',
-                'postvideo',
+            'postimage',
+            // 'postfile',
+            'postvideo',
         ))) {
             $where .= " AND f.type='{$type}' ";
         } elseif ($type == 'post') {
@@ -141,7 +141,7 @@ class WeiboApi extends Api
         $where .= " AND (f.app='public')";
         $where .= " AND f.type != 'postfile'";
         $order = 'c.feed_id DESC';
-        $sql = 'SELECT distinct c.feed_id FROM `'.$tablePrefix.'channel` c LEFT JOIN `'.$tablePrefix.'feed` f ON c.feed_id = f.feed_id WHERE '.$where.' ORDER BY '.$order.' LIMIT '.$count.'';
+        $sql = 'SELECT distinct c.feed_id FROM `' . $tablePrefix . 'channel` c LEFT JOIN `' . $tablePrefix . 'feed` f ON c.feed_id = f.feed_id WHERE ' . $where . ' ORDER BY ' . $order . ' LIMIT ' . $count . '';
         $feed_ids = getSubByKey(D()->query($sql), 'feed_id');
 
         return $this->format_feed($feed_ids);
@@ -151,40 +151,40 @@ class WeiboApi extends Api
      * 获取某个话题下的微博 --using.
      *
      * @param
-     *        	varchar topic_name 话题名称
+     *            varchar topic_name 话题名称
      * @param
-     *        	integer max_id 上次返回的最后一条微博ID
+     *            integer max_id 上次返回的最后一条微博ID
      * @param
-     *        	integer count 微博条数
+     *            integer count 微博条数
      * @param
-     *        	integer type 微博类型 'post','repost','postimage','postfile','postvideo'
+     *            integer type 微博类型 'post','repost','postimage','postfile','postvideo'
      *
-     * @return array 话题详�
+     * @return array 话题详�
      */
     public function topic_timeline()
     {
         $topic_name = t($this->data['topic_name']);
         if (!$topic_name) {
             return array(
-                    'status' => 0,
-                    'msg'    => '话题名称不能为空',
+                'status' => 0,
+                'msg' => '话题名称不能为空',
             );
         }
         $weibo_list = array();
         $topic_detail = D('feed_topic')->where(array(
-                'topic_name' => formatEmoji(true, $topic_name),
+            'topic_name' => formatEmoji(true, $topic_name),
         ))->find();
         if (!$topic_detail) {
             return array(
-                    'status' => 1,
-                    'msg'    => '列表为空',
-                    'data'   => $weibo_list,
+                'status' => 1,
+                'msg' => '列表为空',
+                'data' => $weibo_list,
             );
         }
         if ($topic_detail['lock'] == 1) {
             return array(
-                    'status' => 0,
-                    'msg'    => '该话题已屏蔽',
+                'status' => 0,
+                'msg' => '该话题已屏蔽',
             );
         }
 
@@ -196,25 +196,25 @@ class WeiboApi extends Api
         if (!empty($topic_detail['top_feed'])) {
             $fids = array_filter(explode(',', $topic_detail['top_feed']));
             $map_test['feed_id'] = array(
-                    'in',
-                    $fids,
+                'in',
+                $fids,
             );
             $test = M('feed')->where($map_test)->field('feed_id')->findAll();
             $fids = array();
             if (!empty($test)) {
                 $fids = getSubByKey($test, 'feed_id');
             }
-            empty($fids) || $where = 'f.feed_id not in ('.implode(',', $fids).') ';
+            empty($fids) || $where = 'f.feed_id not in (' . implode(',', $fids) . ') ';
         }
 
-        $where .= ' AND t.topic_id = '.intval($topic_detail['topic_id']);
+        $where .= ' AND t.topic_id = ' . intval($topic_detail['topic_id']);
 
         !empty($max_id) && $where .= " AND t.feed_id < {$max_id}";
         $type = $this->data['type'];
         if (in_array($type, array(
-                'postimage',
-                'postfile',
-                'postvideo',
+            'postimage',
+            'postfile',
+            'postvideo',
         ))) {
             $where .= " AND f.type='{$type}' ";
         } elseif ($type == 'post') {
@@ -225,7 +225,7 @@ class WeiboApi extends Api
         $where .= " AND (f.app='public')";
         $where .= " AND f.type != 'postfile'";
         $order = 't.feed_id DESC';
-        $sql = 'SELECT t.feed_id FROM `'.$tablePrefix.'feed_topic_link` t LEFT JOIN `'.$tablePrefix.'feed` f ON t.feed_id = f.feed_id WHERE '.$where.' ORDER BY '.$order.' LIMIT '.$count.'';
+        $sql = 'SELECT t.feed_id FROM `' . $tablePrefix . 'feed_topic_link` t LEFT JOIN `' . $tablePrefix . 'feed` f ON t.feed_id = f.feed_id WHERE ' . $where . ' ORDER BY ' . $order . ' LIMIT ' . $count . '';
         $feed_ids = getSubByKey(D()->query($sql), 'feed_id');
         if ($max_id == 0 && !empty($fids)) {
             $feed_ids = array_merge($fids, $feed_ids);
@@ -240,26 +240,26 @@ class WeiboApi extends Api
         }
         if ($max_id) {
             return array(
-                    'status' => 1,
-                    'msg'    => '列表',
-                    'data'   => $feeds,
+                'status' => 1,
+                'msg' => '列表',
+                'data' => $feeds,
             );
         } else {
-            $detail['topic_name'] = '#'.$topic_detail['topic_name'].'#';
+            $detail['topic_name'] = '#' . $topic_detail['topic_name'] . '#';
             $detail['des'] = $topic_detail['des'] ? t($topic_detail['des']) : '';
             $detail['count'] = intval($topic_detail['count']);
             if ($topic_detail['pic']) {
                 $attach = model('Attach')->getAttachById($topic_detail['pic']);
-                $detail['pic'] = getImageUrl($attach['save_path'].$attach['save_name']);
+                $detail['pic'] = getImageUrl($attach['save_path'] . $attach['save_name']);
             } else {
                 $detail['pic'] = '';
             }
             // $detail['feeds'] = $feeds;
             return array(
-                    'status' => 1,
-                    'msg'    => '列表',
-                    'detail' => $detail,
-                    'data'   => $feeds,
+                'status' => 1,
+                'msg' => '列表',
+                'detail' => $detail,
+                'data' => $feeds,
             );
         }
     }
@@ -268,9 +268,9 @@ class WeiboApi extends Api
      * 获取推荐最新发布微博 --using.
      *
      * @param
-     *        	integer max_id 上次返回的最后一条微博ID
+     *            integer max_id 上次返回的最后一条微博ID
      * @param
-     *        	integer count 微博条数
+     *            integer count 微博条数
      *
      * @return array 微博列表
      */
@@ -292,18 +292,18 @@ class WeiboApi extends Api
     }
 
     /**
-     * 某条微博详细�
+     * 某条微博详细�
      * 容 --using.
      *
      * @param
-     *        	integer feed_id 微博ID
+     *            integer feed_id 微博ID
      *
      * @return array 微博详细信息
      */
     public function weibo_detail()
     {
         $feed_id = intval($this->data['feed_id']);
-        $feed_info = model('Cache')->get('feed_info_api_'.$feed_id);
+        $feed_info = model('Cache')->get('feed_info_api_' . $feed_id);
         if (!$feed_info) {
             $feed_info = $this->get_feed_info($feed_id);
             if ($feed_info['is_repost'] == 1) {
@@ -311,14 +311,14 @@ class WeiboApi extends Api
             } else {
                 $feed_info['source_info'] = array();
             }
-            model('Cache')->set('feed_info_api_'.$feed_id, $feed_info);
+            model('Cache')->set('feed_info_api_' . $feed_id, $feed_info);
         }
         // 用户信息
         $feed_info['user_info'] = $this->get_user_info($feed_info['uid']);
         // 赞、收藏
         $diggarr = model('FeedDigg')->checkIsDigg($feed_id, $this->mid);
         $feed_info['is_digg'] = $diggarr[$feed_id] ? 1 : 0;
-        $feed_info['is_favorite'] = model('Collection')->where('uid='.$GLOBALS['ts']['mid'].' and source_id='.$feed_id)->count();
+        $feed_info['is_favorite'] = model('Collection')->where('uid=' . $GLOBALS['ts']['mid'] . ' and source_id=' . $feed_id)->count();
         if ($this->mid != $feed_info['uid']) {
             $privacy = model('UserPrivacy')->getPrivacy($this->mid, $feed_info['uid']);
             if ($privacy['comment_weibo'] == 1) {
@@ -339,11 +339,11 @@ class WeiboApi extends Api
      * 获取指定微博的评论列表 --using.
      *
      * @param
-     *        	integer feed_id 微博ID
+     *            integer feed_id 微博ID
      * @param
-     *        	integer max_id 上次返回的最后一条评论ID
+     *            integer max_id 上次返回的最后一条评论ID
      * @param
-     *        	integer count 评论条数
+     *            integer count 评论条数
      *
      * @return array 评论列表
      */
@@ -353,7 +353,7 @@ class WeiboApi extends Api
             $feed_id = $this->data['feed_id'];
         }
         $comment_list = array();
-        $where = 'is_del=0 and row_id='.$feed_id;
+        $where = 'is_del=0 and row_id=' . $feed_id;
         if (!$count) {
             $count = $this->count;
             !empty($this->max_id) && $where .= " AND comment_id < {$this->max_id}";
@@ -397,11 +397,11 @@ class WeiboApi extends Api
      * 获取指定微博的赞过的人的列表 --using.
      *
      * @param
-     *        	integer feed_id 微博ID
+     *            integer feed_id 微博ID
      * @param
-     *        	integer max_id 上次返回的最后一条赞的ID
+     *            integer max_id 上次返回的最后一条赞的ID
      * @param
-     *        	integer count 数量
+     *            integer count 数量
      *
      * @return array 点赞的用户列表
      */
@@ -410,7 +410,7 @@ class WeiboApi extends Api
         if (!$feed_id) {
             $feed_id = $this->data['feed_id'];
         }
-        $where = 'feed_id='.$feed_id;
+        $where = 'feed_id=' . $feed_id;
         !empty($this->max_id) && $where .= " AND id < {$this->max_id}";
         $digg_list = model('FeedDigg')->where($where)->order('cTime DESC')->limit($count)->findAll();
         if (!$digg_list) {
@@ -440,19 +440,19 @@ class WeiboApi extends Api
      * 发布一条微博 --using.
      *
      * @param
-     *        	string content 微博�
+     *            string content 微博�
      * 容
-     * @param float  $latitude
+     * @param float $latitude
      *                          纬度
-     * @param float  $longitude
+     * @param float $longitude
      *                          经度
      * @param string $address
-     *                          �
-     * �体地址
+     *                          �
+     * �体地址
      * @param
-     *        	integer from 来源(2-android 3-iphone)
+     *            integer from 来源(2-android 3-iphone)
      * @param
-     *        	string channel_category_id 频道ID(多个频道ID之间用逗号隔开)
+     *            string channel_category_id 频道ID(多个频道ID之间用逗号隔开)
      *
      * @return array 状态+提示/数据
      */
@@ -461,7 +461,7 @@ class WeiboApi extends Api
         if (!CheckPermission('core_normal', 'feed_post')) {
             return array(
                 'status' => 0,
-                'msg'    => '您没有权限',
+                'msg' => '您没有权限',
             );
         }
         if ($datas) {
@@ -472,7 +472,7 @@ class WeiboApi extends Api
         if ($isDisabled = model('DisableUser')->isDisableUser($this->mid, 'post')) {
             return array(
                 'status' => 0,
-                'msg'    => '您已经被禁言了',
+                'msg' => '您已经被禁言了',
             );
         }
 
@@ -484,8 +484,8 @@ class WeiboApi extends Api
 
         if (trim($data['body']) == '') {
             return array(
-                    'status' => 0,
-                    'msg'    => '内容不能为空',
+                'status' => 0,
+                'msg' => '内容不能为空',
             );
         }
         $data['type'] = isset($this->data['type']) ? $this->data['type'] : 'post';
@@ -510,19 +510,19 @@ class WeiboApi extends Api
             $data['attach_id'] = $attach_id;
         }
         if (isset($datas['video_id'])) { // 视频类型
-            D('video')->where('video_id='.$datas['video_id'])->setField('feed_id', $feed_id);
+            D('video')->where('video_id=' . $datas['video_id'])->setField('feed_id', $feed_id);
             // 如果需要转码
-            if (D('video_transfer')->where('video_id='.$datas['video_id'])->count()) {
-                D('video_transfer')->where('video_id='.$datas['video_id'])->setField('feed_id', $feed_id);
+            if (D('video_transfer')->where('video_id=' . $datas['video_id'])->count()) {
+                D('video_transfer')->where('video_id=' . $datas['video_id'])->setField('feed_id', $feed_id);
             }
             $data = array_merge($data, $datas);
         }
 
         $feed_data = D('FeedData')->data(array(
-                'feed_id'      => $feed_id,
-                'feed_data'    => serialize($data),
-                'client_ip'    => get_client_ip(),
-                'feed_content' => $data['body'],
+            'feed_id' => $feed_id,
+            'feed_data' => serialize($data),
+            'client_ip' => get_client_ip(),
+            'feed_content' => $data['body'],
         ))->add();
 
         if ($feed_id && $feed_data) {
@@ -530,8 +530,8 @@ class WeiboApi extends Api
             if (isset($datas['attach_id'])) {
                 model('Attach')->where(array('attach_id' => array('in', $datas['attach_id'])))->save(array(
                     'app_name' => 'public',
-                    'table'    => 'feed',
-                    'row_id'   => $feed_id,
+                    'table' => 'feed',
+                    'row_id' => $feed_id,
                 ));
             }
 
@@ -548,9 +548,9 @@ class WeiboApi extends Api
             $isOpenChannel = model('App')->isAppNameOpen('channel');
             if (!$isOpenChannel) {
                 return array(
-                        'status'  => 1,
-                        'msg'     => '发布成功',
-                        'feed_id' => $feed_id,
+                    'status' => 1,
+                    'msg' => '发布成功',
+                    'feed_id' => $feed_id,
                 );
             }
             // 添加微博到频道中
@@ -586,15 +586,15 @@ class WeiboApi extends Api
             }
 
             return array(
-                    'status'           => 1,
-                    'msg'              => '发布成功',
-                    'feed_id'          => $feed_id,
-                    'is_audit_channel' => intval($channelConf['is_audit']),
+                'status' => 1,
+                'msg' => '发布成功',
+                'feed_id' => $feed_id,
+                'is_audit_channel' => intval($channelConf['is_audit']),
             );
         } else {
             return array(
-                    'status' => 0,
-                    'msg'    => '发布失败',
+                'status' => 0,
+                'msg' => '发布失败',
             );
         }
     }
@@ -605,19 +605,19 @@ class WeiboApi extends Api
      * @param file $_FILE
      *                    图片
      * @param
-     *        	string content 微博�
+     *            string content 微博�
      * 容
-     * @param float  $latitude
+     * @param float $latitude
      *                          纬度
-     * @param float  $longitude
+     * @param float $longitude
      *                          经度
      * @param string $address
-     *                          �
-     * �体地址
+     *                          �
+     * �体地址
      * @param
-     *        	integer from 来源(2-android 3-iphone)
+     *            integer from 来源(2-android 3-iphone)
      * @param
-     *        	string channel_id 频道ID(多个频道ID之间用逗号隔开)
+     *            string channel_id 频道ID(多个频道ID之间用逗号隔开)
      *
      * @return array 状态+提示/数据
      */
@@ -626,7 +626,7 @@ class WeiboApi extends Api
         if (!CheckPermission('core_normal', 'feed_post')) {
             return array(
                 'status' => 0,
-                'msg'    => '您没有权限',
+                'msg' => '您没有权限',
             );
         }
         $d['attach_type'] = 'feed_image';
@@ -641,8 +641,8 @@ class WeiboApi extends Api
             return $this->post_weibo($data);
         } else {
             return array(
-                    'status' => 0,
-                    'msg'    => '发布失败',
+                'status' => 0,
+                'msg' => '发布失败',
             );
         }
     }
@@ -653,19 +653,19 @@ class WeiboApi extends Api
      * @param file $_FILE
      *                    视频
      * @param
-     *        	string content 微博�
+     *            string content 微博�
      * 容
-     * @param float  $latitude
+     * @param float $latitude
      *                          纬度
-     * @param float  $longitude
+     * @param float $longitude
      *                          经度
      * @param string $address
-     *                          �
-     * �体地址
+     *                          �
+     * �体地址
      * @param
-     *        	integer from 来源(2-android 3-iphone)
+     *            integer from 来源(2-android 3-iphone)
      * @param
-     *        	string channel_id 频道ID(多个频道ID之间用逗号隔开)
+     *            string channel_id 频道ID(多个频道ID之间用逗号隔开)
      *
      * @return array 状态+提示/数据
      */
@@ -675,7 +675,7 @@ class WeiboApi extends Api
         if (!CheckPermission('core_normal', 'feed_post')) {
             return array(
                 'status' => 0,
-                'msg'    => '您没有权限',
+                'msg' => '您没有权限',
             );
         }
         // dump($_REQUEST);exit;
@@ -702,7 +702,7 @@ class WeiboApi extends Api
      * 删除一条微博 --using.
      *
      * @param
-     *        	integer feed_id 微博ID
+     *            integer feed_id 微博ID
      *
      * @return array 状态+提示
      */
@@ -729,13 +729,13 @@ class WeiboApi extends Api
         }
         if ($return['status'] == 1) {
             return array(
-                    'status' => 1,
-                    'msg'    => '删除成功',
+                'status' => 1,
+                'msg' => '删除成功',
             );
         } else {
             return array(
-                    'status' => 0,
-                    'msg'    => '删除失败',
+                'status' => 0,
+                'msg' => '删除失败',
             );
         }
     }
@@ -744,19 +744,19 @@ class WeiboApi extends Api
      * 转发一条微博 --using.
      *
      * @param
-     *        	integer feed_id 微博ID
+     *            integer feed_id 微博ID
      * @param
-     *        	string content 转发�
+     *            string content 转发�
      * 容
-     * @param float  $latitude
+     * @param float $latitude
      *                          纬度
-     * @param float  $longitude
+     * @param float $longitude
      *                          经度
      * @param string $address
-     *                          �
-     * �体地址
+     *                          �
+     * �体地址
      * @param
-     *        	integer from 来源(2-android 3-iPhone)
+     *            integer from 来源(2-android 3-iPhone)
      *
      * @return array 状态+提示
      */
@@ -764,17 +764,17 @@ class WeiboApi extends Api
     {
         if (!CheckPermission('core_normal', 'feed_post')) {
             return array(
-                    'status' => 0,
-                    'msg'    => '您没有权限',
+                'status' => 0,
+                'msg' => '您没有权限',
             );
         }
         if (!t($this->data['content'])) {
             return array(
-                    'status' => 0,
-                    'msg'    => '转发内容不能为空',
+                'status' => 0,
+                'msg' => '转发内容不能为空',
             );
         }
-        $feed_detail = model('Feed')->where('feed_id='.intval($this->data['feed_id']))->field('app,app_row_table,app_row_id')->find();
+        $feed_detail = model('Feed')->where('feed_id=' . intval($this->data['feed_id']))->field('app,app_row_table,app_row_id')->find();
         $p['app_name'] = isset($feed_detail['app']) ? $feed_detail['app'] : 'public';
         $p['type'] = isset($feed_detail['app_row_table']) ? $feed_detail['app_row_table'] : 'feed';
         $p['sid'] = $feed_detail['app_row_id'] ? intval($feed_detail['app_row_id']) : intval($this->data['feed_id']);
@@ -796,14 +796,14 @@ class WeiboApi extends Api
             model('Credit')->setUserCredit($this->mid, 'forward_weibo');
 
             return array(
-                    'status'  => 1,
-                    'msg'     => '转发成功',
-                    'feed_id' => $return['data']['feed_id'],
+                'status' => 1,
+                'msg' => '转发成功',
+                'feed_id' => $return['data']['feed_id'],
             );
         } else {
             return array(
-                    'status' => 0,
-                    'msg'    => '转发失败',
+                'status' => 0,
+                'msg' => '转发失败',
             );
         }
     }
@@ -812,14 +812,14 @@ class WeiboApi extends Api
      * 评论一条微博 --using.
      *
      * @param
-     *        	integer feed_id 微博ID
+     *            integer feed_id 微博ID
      * @param
-     *        	integer to_comment_id 评论ID
+     *            integer to_comment_id 评论ID
      * @param
-     *        	string content 评论�
+     *            string content 评论�
      * 容
      * @param
-     *        	integer from 来源(2-android 3-iPhone)
+     *            integer from 来源(2-android 3-iPhone)
      *
      * @return array 状态+提示
      */
@@ -827,24 +827,24 @@ class WeiboApi extends Api
     {
         if (!CheckPermission('core_normal', 'feed_comment')) {
             return array(
-                    'status' => 0,
-                    'msg'    => '您没有权限',
+                'status' => 0,
+                'msg' => '您没有权限',
             );
         }
         if (!t($this->data['content'])) {
             return array(
-                    'status' => 0,
-                    'msg'    => '评论内容不能为空',
+                'status' => 0,
+                'msg' => '评论内容不能为空',
             );
         }
         //检测用户是否被禁言
         if ($isDisabled = model('DisableUser')->isDisableUser($this->mid, 'post')) {
             return array(
                 'status' => 0,
-                'msg'    => '您已经被禁言了',
+                'msg' => '您已经被禁言了',
             );
         }
-        $feed_detail = model('Feed')->where('feed_id='.intval($this->data['feed_id']))->find();
+        $feed_detail = model('Feed')->where('feed_id=' . intval($this->data['feed_id']))->find();
         $data['type'] = 1;
         $data['app'] = $feed_detail['app'];
         $data['table'] = 'feed';
@@ -856,7 +856,7 @@ class WeiboApi extends Api
         $data['content'] = t(formatEmoji(true, $data['content']));
         if ($this->data['to_comment_id']) {
             $data['to_comment_id'] = intval($this->data['to_comment_id']);
-            $data['to_uid'] = model('Comment')->where('comment_id='.intval($this->data['to_comment_id']))->getField('uid');
+            $data['to_uid'] = model('Comment')->where('comment_id=' . intval($this->data['to_comment_id']))->getField('uid');
         }
         if (($data['comment_id'] = model('Comment')->addComment($data, true))) {
             //如果回复的源为微吧，同步评论到相应的帖子
@@ -869,7 +869,7 @@ class WeiboApi extends Api
 
                 if (!empty($this->data['to_comment_id'])) {
                     $wr_data['to_reply_id'] = intval($this->data['to_comment_id']);
-                    $wr_data['to_uid'] = model('Comment')->where('comment_id='.intval($this->data['to_comment_id']))->getField('uid');
+                    $wr_data['to_uid'] = model('Comment')->where('comment_id=' . intval($this->data['to_comment_id']))->getField('uid');
                 }
 
                 $wr_data['uid'] = $this->mid;
@@ -879,8 +879,8 @@ class WeiboApi extends Api
                 $filterContentStatus = filter_words($wr_data['content']);
                 if (!$filterContentStatus['status']) {
                     return array(
-                            'status' => 0,
-                            'msg'    => $filterContentStatus['data'],
+                        'status' => 0,
+                        'msg' => $filterContentStatus['data'],
                     );
                 }
                 $wr_data['content'] = t($filterContentStatus['data']);
@@ -891,25 +891,25 @@ class WeiboApi extends Api
                 $wp_up['last_reply_uid'] = $this->mid;
                 $wp_up['last_reply_time'] = $wr_data['ctime'];
                 $wp_up['reply_count'] = array(
-                        'exp',
-                        'reply_count+1',
+                    'exp',
+                    'reply_count+1',
                 );
                 $wp_up['reply_all_count'] = array(
-                        'exp',
-                        'reply_all_count+1',
+                    'exp',
+                    'reply_all_count+1',
                 );
-                D('weiba_post', 'weiba')->where('post_id = '.$feed_detail['app_row_id'])->save($wp_up);
+                D('weiba_post', 'weiba')->where('post_id = ' . $feed_detail['app_row_id'])->save($wp_up);
             }
 
             return array(
-                    'status' => 1,
-                    'msg'    => '评论成功',
-                    'cid'    => $data['comment_id'],
+                'status' => 1,
+                'msg' => '评论成功',
+                'cid' => $data['comment_id'],
             );
         } else {
             return array(
-                    'status' => 0,
-                    'msg'    => '评论失败',
+                'status' => 0,
+                'msg' => '评论失败',
             );
         }
     }
@@ -930,7 +930,7 @@ class WeiboApi extends Api
          */
         if (!$cid or !$this->mid) {
             return array(
-                'status'  => 0,
+                'status' => 0,
                 'message' => '传入的参数不合法',
             );
 
@@ -939,13 +939,13 @@ class WeiboApi extends Api
              */
         } elseif (model('Comment')->deleteComment(array($cid), $this->mid)) {
             return array(
-                'status'  => 1,
+                'status' => 1,
                 'message' => '删除成功',
             );
         }
 
         return array(
-            'status'  => -1,
+            'status' => -1,
             'message' => '删除失败',
         );
     }
@@ -954,7 +954,7 @@ class WeiboApi extends Api
      * 赞某条微博 --using.
      *
      * @param
-     *        	integer feed_id 微博ID
+     *            integer feed_id 微博ID
      *
      * @return array 状态+提示
      */
@@ -964,13 +964,13 @@ class WeiboApi extends Api
         $res = model('FeedDigg')->addDigg($feed_id, $this->mid);
         if ($res) {
             return array(
-                    'status' => 1,
-                    'msg'    => '操作成功',
+                'status' => 1,
+                'msg' => '操作成功',
             );
         } else {
             return array(
-                    'status' => 0,
-                    'msg'    => '操作失败',
+                'status' => 0,
+                'msg' => '操作失败',
             );
         }
     }
@@ -979,7 +979,7 @@ class WeiboApi extends Api
      * 取消赞某条微博 --using.
      *
      * @param
-     *        	integer feed_id 微博ID
+     *            integer feed_id 微博ID
      *
      * @return array 状态+提示
      */
@@ -989,13 +989,13 @@ class WeiboApi extends Api
         $res = model('FeedDigg')->delDigg($feed_id, $this->mid);
         if ($res) {
             return array(
-                    'status' => 1,
-                    'msg'    => '操作成功',
+                'status' => 1,
+                'msg' => '操作成功',
             );
         } else {
             return array(
-                    'status' => 0,
-                    'msg'    => '操作失败',
+                'status' => 0,
+                'msg' => '操作失败',
             );
         }
     }
@@ -1004,7 +1004,7 @@ class WeiboApi extends Api
      * 赞某条评论 --using.
      *
      * @param
-     *        	integer comment_id 评论ID
+     *            integer comment_id 评论ID
      *
      * @return array 状态+提示
      */
@@ -1014,13 +1014,13 @@ class WeiboApi extends Api
         $res = model('CommentDigg')->addDigg($comment_id, $this->mid);
         if ($res) {
             return array(
-                    'status' => 1,
-                    'msg'    => '操作成功',
+                'status' => 1,
+                'msg' => '操作成功',
             );
         } else {
             return array(
-                    'status' => 0,
-                    'msg'    => '操作失败',
+                'status' => 0,
+                'msg' => '操作失败',
             );
         }
     }
@@ -1029,7 +1029,7 @@ class WeiboApi extends Api
      * 取消赞某条评论 --using.
      *
      * @param
-     *        	integer comment_id 评论ID
+     *            integer comment_id 评论ID
      *
      * @return array 状态+提示
      */
@@ -1039,13 +1039,13 @@ class WeiboApi extends Api
         $res = model('CommentDigg')->delDigg($comment_id, $this->mid);
         if ($res) {
             return array(
-                    'status' => 1,
-                    'msg'    => '操作成功',
+                'status' => 1,
+                'msg' => '操作成功',
             );
         } else {
             return array(
-                    'status' => 0,
-                    'msg'    => '操作失败',
+                'status' => 0,
+                'msg' => '操作失败',
             );
         }
     }
@@ -1054,7 +1054,7 @@ class WeiboApi extends Api
      * 收藏一条资源 --using.
      *
      * @param
-     *        	integer feed_id 资源ID
+     *            integer feed_id 资源ID
      *
      * @return array 状态+提示
      */
@@ -1066,13 +1066,13 @@ class WeiboApi extends Api
 
         if (model('Collection')->addCollection($data)) {
             return array(
-                    'status' => 1,
-                    'msg'    => '收藏成功',
+                'status' => 1,
+                'msg' => '收藏成功',
             );
         } else {
             return array(
-                    'status' => 0,
-                    'msg'    => '收藏失败',
+                'status' => 0,
+                'msg' => '收藏失败',
             );
         }
     }
@@ -1081,7 +1081,7 @@ class WeiboApi extends Api
      * 取消收藏 --using.
      *
      * @param
-     *        	integer feed_id 资源ID
+     *            integer feed_id 资源ID
      *
      * @return array 状态+提示
      */
@@ -1089,13 +1089,13 @@ class WeiboApi extends Api
     {
         if (model('Collection')->delCollection($this->data['feed_id'], 'feed')) {
             return array(
-                    'status' => 1,
-                    'msg'    => '取消收藏成功',
+                'status' => 1,
+                'msg' => '取消收藏成功',
             );
         } else {
             return array(
-                    'status' => 0,
-                    'msg'    => '取消收藏失败',
+                'status' => 0,
+                'msg' => '取消收藏失败',
             );
         }
     }
@@ -1104,22 +1104,22 @@ class WeiboApi extends Api
      * 举报一条微博 --using.
      *
      * @param
-     *        	integer feed_id 微博ID
+     *            integer feed_id 微博ID
      * @param
-     *        	varchar reason 举报原因
+     *            varchar reason 举报原因
      * @param
-     *        	integer from 来源(2-android 3-iphone)
+     *            integer from 来源(2-android 3-iphone)
      *
      * @return array 状态+提示
      */
     public function denounce_weibo()
     {
         $feed_id = intval($this->data['feed_id']);
-        $feed_uid = model('Feed')->where('is_del=0 and feed_id='.$feed_id)->getField('uid');
+        $feed_uid = model('Feed')->where('is_del=0 and feed_id=' . $feed_id)->getField('uid');
         if (!$feed_uid) {
             return array(
-                    'status' => 0,
-                    'msg'    => '内容已被删除，举报失败',
+                'status' => 0,
+                'msg' => '内容已被删除，举报失败',
             );
         }
 
@@ -1135,13 +1135,13 @@ class WeiboApi extends Api
         $data['fuid'] = $feed_uid;
         if ($isDenounce = model('Denounce')->where($data)->count()) {
             return array(
-                    'status' => 0,
-                    'msg'    => L('PUBLIC_REPORTING_INFO'),
+                'status' => 0,
+                'msg' => L('PUBLIC_REPORTING_INFO'),
             );
         } else {
-            $data['content'] = D('feed_data')->where('feed_id='.$feed_id)->getField('feed_content');
+            $data['content'] = D('feed_data')->where('feed_id=' . $feed_id)->getField('feed_content');
             $data['reason'] = t($this->data['reason']);
-            $data['source_url'] = '[SITE_URL]/index.php?app=public&mod=Profile&act=feed&feed_id='.$feed_id;
+            $data['source_url'] = '[SITE_URL]/index.php?app=public&mod=Profile&act=feed&feed_id=' . $feed_id;
             $data['ctime'] = time();
             if ($id = model('Denounce')->add($data)) {
                 // 添加积分
@@ -1154,35 +1154,35 @@ class WeiboApi extends Api
                 }
 
                 return array(
-                        'status' => 1,
-                        'msg'    => '举报成功',
+                    'status' => 1,
+                    'msg' => '举报成功',
                 );
             } else {
                 return array(
-                        'status' => 0,
-                        'msg'    => L('PUBLIC_REPORT_ERROR'),
+                    'status' => 0,
+                    'msg' => L('PUBLIC_REPORT_ERROR'),
                 );
             }
         }
     }
 
     /**
-     * ******** 用户相�
-     * �微博信息列表API *********.
+     * ******** 用户相�
+     * �微博信息列表API *********.
      */
 
     /**
      * 用户发的微博 --using.
      *
-     * @param int     $user_id
+     * @param int $user_id
      *                         用户UID
      * @param varchar $uname
      *                         用户名
-     * @param int     $max_id
+     * @param int $max_id
      *                         上次返回的最后一条微博ID
-     * @param int     $count
+     * @param int $count
      *                         微博条数
-     * @param int     $type
+     * @param int $type
      *                         微博类型 'post','repost','postimage','postfile','postvideo'
      *
      * @return array 微博列表
@@ -1196,7 +1196,7 @@ class WeiboApi extends Api
                 $uid = intval($this->user_id);
             } else {
                 $uid = model('User')->where(array(
-                        'uname' => $this->data['uname'],
+                    'uname' => $this->data['uname'],
                 ))->getField('uid');
             }
         }
@@ -1207,9 +1207,9 @@ class WeiboApi extends Api
 
         $where = "uid = '{$uid}' AND is_del = 0";
         if (in_array($type, array(
-                'postimage',
-                'postfile',
-                'postvideo',
+            'postimage',
+            'postfile',
+            'postvideo',
         ))) {
             $where .= " AND type='{$type}' ";
         } elseif ($type == 'post') {
@@ -1227,13 +1227,13 @@ class WeiboApi extends Api
      * 用户收藏的微博 --using.
      *
      * @param
-     *        	integer user_id 用户UID
+     *            integer user_id 用户UID
      * @param
-     *        	integer max_id 上次返回的最后一条收藏ID
+     *            integer max_id 上次返回的最后一条收藏ID
      * @param
-     *        	integer count 微博条数
+     *            integer count 微博条数
      * @param
-     *        	integer type 微博类型 'post','repost','postimage','postfile','postvideo'
+     *            integer type 微博类型 'post','repost','postimage','postfile','postvideo'
      *
      * @return array 微博列表
      */
@@ -1248,9 +1248,9 @@ class WeiboApi extends Api
         // $map ['f.app'] = 'public';
         $map['f.app'] = array('in', array("'public'", "'weiba'"));
         if (in_array($type, array(
-                'postimage',
-                'postfile',
-                'postvideo',
+            'postimage',
+            'postfile',
+            'postvideo',
         ))) {
             $map['f.type'] = $type;
         } elseif ($type == 'post') {
@@ -1259,14 +1259,14 @@ class WeiboApi extends Api
             $map['f.is_repost'] = 1;
         }
         !empty($max_id) && $map['c.collection_id'] = array(
-                'lt',
-                $max_id,
+            'lt',
+            $max_id,
         );
-        $list = D()->table('`'.C('DB_PREFIX').'feed` AS f LEFT JOIN `'.C('DB_PREFIX').'collection` AS c ON f.`feed_id` = c.`source_id`')->field('c.`source_id`,c.collection_id')->where($map)->order('c.collection_id DESC')->limit($count)->findAll();
+        $list = D()->table('`' . C('DB_PREFIX') . 'feed` AS f LEFT JOIN `' . C('DB_PREFIX') . 'collection` AS c ON f.`feed_id` = c.`source_id`')->field('c.`source_id`,c.collection_id')->where($map)->order('c.collection_id DESC')->limit($count)->findAll();
         $collection_list = array();
         foreach ($list as $k => $v) {
             // 微博信息
-            $feed_info = model('Cache')->get('feed_info_api_'.$v['source_id']);
+            $feed_info = model('Cache')->get('feed_info_api_' . $v['source_id']);
             if ($feed_info) {
                 $r[$k] = $feed_info;
             } else {
@@ -1276,12 +1276,12 @@ class WeiboApi extends Api
                 } else {
                     $r[$k]['source_info'] = array();
                 }
-                model('Cache')->set('feed_info_api_'.$v['source_id'], $r[$k]);
+                model('Cache')->set('feed_info_api_' . $v['source_id'], $r[$k]);
             }
             // 赞、评论
             $diggarr = model('FeedDigg')->checkIsDigg($v['source_id'], $GLOBALS['ts']['mid']);
             $r[$k]['is_digg'] = t($diggarr[$v['source_id']] ? 1 : 0);
-            $r[$k]['is_favorite'] = model('Collection')->where('uid='.$GLOBALS['ts']['mid'].' and source_id='.$v['source_id'])->count();
+            $r[$k]['is_favorite'] = model('Collection')->where('uid=' . $GLOBALS['ts']['mid'] . ' and source_id=' . $v['source_id'])->count();
             if ($this->mid != $feed_info['uid']) {
                 $privacy = model('UserPrivacy')->getPrivacy($this->mid, $feed_info['uid']);
                 if ($privacy['comment_weibo'] == 1) {
@@ -1305,23 +1305,23 @@ class WeiboApi extends Api
     }
 
     /**
-     * ******** 搜索相�
-     * �的接口API *********.
+     * ******** 搜索相�
+     * �的接口API *********.
      */
 
     /**
-     * 按�
-     * �键字搜索微博 --using.
+     * 按�
+     * �键字搜索微博 --using.
      *
      * @param
-     *        	integer max_id 上次返回的最后一条收藏ID
+     *            integer max_id 上次返回的最后一条收藏ID
      * @param
-     *        	integer count 微博条数
+     *            integer count 微博条数
      * @param
-     *        	varchar key �
-     * �键字
+     *            varchar key �
+     * �键字
      * @param
-     *        	integer type 微博类型 'post','repost','postimage','postfile','postvideo'
+     *            integer type 微博类型 'post','repost','postimage','postfile','postvideo'
      *
      * @return array 微博列表
      */
@@ -1334,9 +1334,9 @@ class WeiboApi extends Api
 
         $key = t(trim($key));
         $key = str_ireplace(array(
-                '%',
-                "'",
-                '"',
+            '%',
+            "'",
+            '"',
         ), '', $key);
         if (empty($key)) {
             return array();
@@ -1344,17 +1344,17 @@ class WeiboApi extends Api
         $map['a.is_del'] = 0;
         $map['a.is_audit'] = 1;
         !empty($max_id) && $map['a.feed_id'] = array(
-                'lt',
-                $max_id,
+            'lt',
+            $max_id,
         );
         $map['b.feed_content'] = array(
-                'LIKE',
-                '%'.$key.'%',
+            'LIKE',
+            '%' . $key . '%',
         );
         if (in_array($type, array(
-                'postimage',
-                'postfile',
-                'postvideo',
+            'postimage',
+            'postfile',
+            'postvideo',
         ))) {
             $map['a.type'] = $type;
         } elseif ($type == 'post') {
@@ -1362,7 +1362,7 @@ class WeiboApi extends Api
         } elseif ($type == 'repost') {
             $map['a.is_repost'] = 1;
         }
-        $feed_ids = D()->table('`'.C('DB_PREFIX').'feed` AS a LEFT JOIN `'.C('DB_PREFIX').'feed_data` AS b ON a.`feed_id` = b.`feed_id`')->field('a.`feed_id`')->where($map)->order('a.`feed_id` DESC')->limit($count)->getAsFieldArray('feed_id');
+        $feed_ids = D()->table('`' . C('DB_PREFIX') . 'feed` AS a LEFT JOIN `' . C('DB_PREFIX') . 'feed_data` AS b ON a.`feed_id` = b.`feed_id`')->field('a.`feed_id`')->where($map)->order('a.`feed_id` DESC')->limit($count)->getAsFieldArray('feed_id');
 
         return $this->format_feed($feed_ids);
     }
@@ -1371,14 +1371,14 @@ class WeiboApi extends Api
      * 按话题搜索微博 --using.
      *
      * @param
-     *        	integer max_id 上次返回的最后一条收藏ID
+     *            integer max_id 上次返回的最后一条收藏ID
      * @param
-     *        	integer count 微博条数
+     *            integer count 微博条数
      * @param
-     *        	varchar key �
-     * �键字
+     *            varchar key �
+     * �键字
      * @param
-     *        	integer type 微博类型 'post','repost','postimage','postfile','postvideo'
+     *            integer type 微博类型 'post','repost','postimage','postfile','postvideo'
      *
      * @return array 微博列表
      */
@@ -1392,9 +1392,9 @@ class WeiboApi extends Api
         $key = t(trim($key));
         $key = trim($key, '#');
         $key = str_ireplace(array(
-                '%',
-                "'",
-                '"',
+            '%',
+            "'",
+            '"',
         ), '', $key);
         if (empty($key)) {
             return array();
@@ -1402,17 +1402,17 @@ class WeiboApi extends Api
         $map['a.is_del'] = 0;
         $map['a.is_audit'] = 1;
         !empty($max_id) && $map['a.feed_id'] = array(
-                'lt',
-                $max_id,
+            'lt',
+            $max_id,
         );
         $map['b.feed_content'] = array(
-                'LIKE',
-                '%#'.$key.'#%',
+            'LIKE',
+            '%#' . $key . '#%',
         );
         if (in_array($type, array(
-                'postimage',
-                'postfile',
-                'postvideo',
+            'postimage',
+            'postfile',
+            'postvideo',
         ))) {
             $map['a.type'] = $type;
         } elseif ($type == 'post') {
@@ -1420,7 +1420,7 @@ class WeiboApi extends Api
         } elseif ($type == 'repost') {
             $map['a.is_repost'] = 1;
         }
-        $feed_ids = D()->table('`'.C('DB_PREFIX').'feed` AS a LEFT JOIN `'.C('DB_PREFIX').'feed_data` AS b ON a.`feed_id` = b.`feed_id`')->field('a.`feed_id`')->where($map)->order('a.`feed_id` DESC')->limit($count)->getAsFieldArray('feed_id');
+        $feed_ids = D()->table('`' . C('DB_PREFIX') . 'feed` AS a LEFT JOIN `' . C('DB_PREFIX') . 'feed_data` AS b ON a.`feed_id` = b.`feed_id`')->field('a.`feed_id`')->where($map)->order('a.`feed_id` DESC')->limit($count)->getAsFieldArray('feed_id');
 
         return $this->format_feed($feed_ids);
     }
@@ -1429,12 +1429,12 @@ class WeiboApi extends Api
      * 搜索@最近联系人 --using.
      *
      * @param
-     *        	varchar key �
-     * �键字
+     *            varchar key �
+     * �键字
      * @param
-     *        	integer max_id 上次返回的最后一条用户UID
+     *            integer max_id 上次返回的最后一条用户UID
      * @param
-     *        	integer count 用户条数
+     *            integer count 用户条数
      *
      * @return array 用户列表
      */
@@ -1454,7 +1454,7 @@ class WeiboApi extends Api
                 if ($user_list) {
                     foreach ($user_list as $k => $v) {
                         $at_list[$k] = $v;
-                        $intro = model('User')->where('uid='.$v['uid'])->getField('intro');
+                        $intro = model('User')->where('uid=' . $v['uid'])->getField('intro');
                         $at_list[$k]['intro'] = $intro ? formatEmoji(false, $intro) : '';
                         $at_list[$k]['avatar'] = $v['avatar_small'];
                     }
@@ -1462,42 +1462,42 @@ class WeiboApi extends Api
             }
         } else {
             $uid_arr = model('User')->where(array(
-                    'uname' => $key,
+                'uname' => $key,
             ))->field('uid,uname,intro')->findAll(); // 先搜索和key一致的，优先显示
             if ($uid_arr) {
                 $map['uid'] = array(
-                        'neq',
-                        $uid_arr[0]['uid'],
+                    'neq',
+                    $uid_arr[0]['uid'],
                 );
                 !empty($key) && $map['search_key'] = array(
-                        'like',
-                        '%'.$key.'%',
+                    'like',
+                    '%' . $key . '%',
                 );
                 if (!$max_id) {
                     $user_list = model('User')->where($map)->field('uid,uname,intro')->order('uid desc')->limit($count - 1)->findAll();
                     $user_list = array_merge($uid_arr, $user_list);
                 } else {
                     $map['uid'] = array(
-                            array(
-                                    'lt',
-                                    $max_id,
-                            ),
-                            array(
-                                    'neq',
-                                    $uid_arr[0]['uid'],
-                            ),
-                            'AND',
+                        array(
+                            'lt',
+                            $max_id,
+                        ),
+                        array(
+                            'neq',
+                            $uid_arr[0]['uid'],
+                        ),
+                        'AND',
                     );
                     $user_list = model('User')->where($map)->field('uid,uname,intro')->order('uid desc')->limit($count)->findAll();
                 }
             } else {
                 !empty($max_id) && $map['uid'] = array(
-                        'lt',
-                        $max_id,
+                    'lt',
+                    $max_id,
                 );
                 !empty($key) && $map['search_key'] = array(
-                        'like',
-                        '%'.$key.'%',
+                    'like',
+                    '%' . $key . '%',
                 );
                 $user_list = model('User')->where($map)->field('uid,uname,intro')->order('uid desc')->limit($count)->findAll();
             }
@@ -1523,12 +1523,12 @@ class WeiboApi extends Api
      * 搜索话题 --using.
      *
      * @param
-     *        	varchar key �
-     * �键字
+     *            varchar key �
+     * �键字
      * @param
-     *        	integer max_id 上次返回的最后一条话题ID
+     *            integer max_id 上次返回的最后一条话题ID
      * @param
-     *        	integer count 话题条数
+     *            integer count 话题条数
      *
      * @return array 话题列表
      */
@@ -1539,12 +1539,12 @@ class WeiboApi extends Api
         $count = $this->count ? intval($this->count) : 20;
 
         !empty($max_id) && $map['topic_id'] = array(
-                'lt',
-                $max_id,
+            'lt',
+            $max_id,
         );
         !empty($key) && $map['topic_name'] = array(
-                'like',
-                '%'.$key.'%',
+            'like',
+            '%' . $key . '%',
         );
         $map['lock'] = 0;
         $data = model('FeedTopic')->where($map)->field('topic_id,topic_name')->limit($count)->order('topic_id desc')->findAll();
@@ -1560,17 +1560,17 @@ class WeiboApi extends Api
     }
 
     /**
-     * ******** 用户的相�
-     * �微博--将合并 @我的、评论我的等等微博列表 *********.
+     * ******** 用户的相�
+     * �微博--将合并 @我的、评论我的等等微博列表 *********.
      */
 
     /**
      * 提到用户的微博 --using.
      *
      * @param
-     *        	integer max_id 上次返回的最后一条atme_id
+     *            integer max_id 上次返回的最后一条atme_id
      * @param
-     *        	integer count @条数
+     *            integer count @条数
      *
      * @return array 提到我的列表
      */
@@ -1588,7 +1588,7 @@ class WeiboApi extends Api
             $atme['atme_id'] = $v['atme_id'];
             if ($v['table'] == 'comment') {
                 $atme['atme_type'] = 'comment';
-                $comment = D('comment')->where('comment_id='.$v['row_id'])->field('row_id,uid,content,ctime')->find();
+                $comment = D('comment')->where('comment_id=' . $v['row_id'])->field('row_id,uid,content,ctime')->find();
                 $atme['feed_id'] = $comment['row_id'];
                 $atme['type'] = 'post';
                 $atme['content'] = $comment['content'];
@@ -1597,7 +1597,7 @@ class WeiboApi extends Api
                 $atme['user_info'] = $this->get_user_info($comment['uid']);
                 $atme['attach_info'] = array();
                 $feed_info = $this->format_feed(array(
-                        $comment['row_id'],
+                    $comment['row_id'],
                 ), 0);
                 if (!$feed_info[0] || $feed_info[0]['is_del'] == 1) {
                     unset($atme);
@@ -1607,7 +1607,7 @@ class WeiboApi extends Api
             } else { // 微博
                 $atme['atme_type'] = 'feed';
                 $feed_info = $this->format_feed(array(
-                        $v['row_id'],
+                    $v['row_id'],
                 ), 0);
                 if (!$feed_info[0] || $feed_info[0]['is_del'] == 1) {
                     unset($atme);
@@ -1630,16 +1630,16 @@ class WeiboApi extends Api
     }
 
     /**
-     * 与我相�
-     * �.
+     * 与我相�
+     * �.
      *
      * @param
-     *        	integer max_id 上次返回的最后一条atme_id
+     *            integer max_id 上次返回的最后一条atme_id
      * @param`
-     *        	integer count @条数
+     *            integer count @条数
      *
-     * @return array 与我相�
-     * �列表
+     * @return array 与我相�
+     * �列表
      */
     public function user_related()
     {
@@ -1652,7 +1652,7 @@ class WeiboApi extends Api
 
         foreach ($list as $k => $v) {
             if ($v['table'] == 'comment') {
-                $comment = D('comment')->where('comment_id='.$v['row_id'])->field('row_id,uid,content,ctime')->find();
+                $comment = D('comment')->where('comment_id=' . $v['row_id'])->field('row_id,uid,content,ctime')->find();
                 $row_ids[] = $comment['row_id'];
             } else { // 微博
                 $row_ids[] = $v['row_id'];
@@ -1677,9 +1677,9 @@ class WeiboApi extends Api
      * 获取当前用户收到的评论 --using.
      *
      * @param
-     *        	integer max_id 上次返回的最后一条comment_id
+     *            integer max_id 上次返回的最后一条comment_id
      * @param
-     *        	integer count 评论条数
+     *            integer count 评论条数
      *
      * @return array 评论列表
      */
@@ -1702,7 +1702,7 @@ class WeiboApi extends Api
         $comment_arr = array();
         foreach ($list as $k => $v) {
             $feed_info = $this->format_feed(array(
-                    $v['row_id'],
+                $v['row_id'],
             ), 0);
             if (!$feed_info[0] || $feed_info[0]['is_del'] == 1) {
                 unset($comment);
@@ -1729,9 +1729,9 @@ class WeiboApi extends Api
      * 获取当前用户发出的评论 --using.
      *
      * @param
-     *        	integer max_id 上次返回的最后一条comment_id
+     *            integer max_id 上次返回的最后一条comment_id
      * @param
-     *        	integer count 评论条数
+     *            integer count 评论条数
      *
      * @return array 评论列表
      */
@@ -1747,7 +1747,7 @@ class WeiboApi extends Api
         $comment_arr = array();
         foreach ($list as $k => $v) {
             $feed_info = $this->format_feed(array(
-                    $v['row_id'],
+                $v['row_id'],
             ), 0);
             if (!$feed_info[0] || $feed_info[0]['is_del'] == 1) {
                 unset($comment);
@@ -1774,9 +1774,9 @@ class WeiboApi extends Api
      * 获取当前用户的收到的赞 --using.
      *
      * @param
-     *        	integer max_id 上次返回的最后一条digg_id
+     *            integer max_id 上次返回的最后一条digg_id
      * @param
-     *        	integer count 赞条数
+     *            integer count 赞条数
      *
      * @return array 赞列表
      */
@@ -1788,8 +1788,8 @@ class WeiboApi extends Api
         $map['f.uid'] = $this->mid;
         $map['f.is_del'] = 0;
         !empty($max_id) && $map['d.id'] = array(
-                'lt',
-                $max_id,
+            'lt',
+            $max_id,
         );
         $tablePrefix = C('DB_PREFIX');
         $list = D()->table("{$tablePrefix}feed AS f RIGHT JOIN {$tablePrefix}feed_digg AS d ON f.feed_id = d.feed_id ")->where($map)->order('d.id desc')->field('d.id as id,d.uid as uid,d.feed_id as feed_id,d.cTime as ctime')->limit($count)->findAll();
@@ -1797,7 +1797,7 @@ class WeiboApi extends Api
         foreach ($list as $k => $v) {
             $digg['digg_id'] = $v['id'];
             $feed_info = $this->format_feed(array(
-                    $v['feed_id'],
+                $v['feed_id'],
             ), 0);
             if (!$feed_info[0] || $feed_info[0]['is_del'] == 1) {
                 unset($digg);
@@ -1820,16 +1820,16 @@ class WeiboApi extends Api
     }
 
     /**
-     * ******** �
-     * �他�
-     * �用操作API *********.
+     * ******** �
+     * �他�
+     * �用操作API *********.
      */
 
     /**
      * 格式化手机端微博 --using.
      *
      * @param
-     *        	array feed_ids 微博ID
+     *            array feed_ids 微博ID
      *
      * @return array 微博详细信息
      */
@@ -1839,7 +1839,7 @@ class WeiboApi extends Api
             $r = array();
             foreach ($feed_ids as $k => $v) {
                 // 微博信息
-                $feed_info = model('Cache')->get('feed_info_api_'.$v);
+                $feed_info = model('Cache')->get('feed_info_api_' . $v);
                 if ($feed_info) {
                     //每个用户的备注信息不同
                     foreach ($feed_info['digg_users'] as $key => &$value) {
@@ -1863,7 +1863,7 @@ class WeiboApi extends Api
                         } else {
                             $r[$k]['source_info'] = array();
                         }
-                        model('Cache')->set('feed_info_api_'.$v, $r[$k]);
+                        model('Cache')->set('feed_info_api_' . $v, $r[$k]);
                     }
                 }
                 // 用户信息
@@ -1871,7 +1871,7 @@ class WeiboApi extends Api
                 // 赞、收藏
                 $diggarr = model('FeedDigg')->checkIsDigg($v, $GLOBALS['ts']['mid']);
                 $r[$k]['is_digg'] = $diggarr[$v] ? 1 : 0;
-                $r[$k]['is_favorite'] = model('Collection')->where('uid='.$GLOBALS['ts']['mid'].' and source_id='.$v)->count();
+                $r[$k]['is_favorite'] = model('Collection')->where('uid=' . $GLOBALS['ts']['mid'] . ' and source_id=' . $v)->count();
                 if ($this->mid != $feed_info['uid']) {
                     $privacy = model('UserPrivacy')->getPrivacy($this->mid, $feed_info['uid']);
                     if ($privacy['comment_weibo'] == 1) {
@@ -1901,13 +1901,13 @@ class WeiboApi extends Api
     }
 
     /**
-     * 获取微博详�
+     * 获取微博详�
      * --using.
      *
      * @param
-     *        	integer feed_id 微博ID
+     *            integer feed_id 微博ID
      * @param
-     *        	integer is_source 是否为原微博
+     *            integer is_source 是否为原微博
      *
      * @return array 微博详细信息
      */
@@ -1944,11 +1944,11 @@ class WeiboApi extends Api
             $feed_info['address'] = $data['address'];
             $feed_info['address'] or $feed_info['address'] = null;
 
-            if ($channel_category_id = D('channel')->where('feed_id='.$data['feed_id'])->getField('channel_category_id')) {
+            if ($channel_category_id = D('channel')->where('feed_id=' . $data['feed_id'])->getField('channel_category_id')) {
                 $feed_info['channel_category_id'] = $channel_category_id;
-                $channel_category_name = D('channel_category')->where('channel_category_id='.$channel_category_id)->getField('title');
+                $channel_category_name = D('channel_category')->where('channel_category_id=' . $channel_category_id)->getField('title');
                 $feed_info['channel_category_name'] = $channel_category_name;
-                $from = '来自'.$channel_category_name;
+                $from = '来自' . $channel_category_name;
             } else {
                 switch ($data['from']) {
                     case 1:
@@ -1981,7 +1981,8 @@ class WeiboApi extends Api
                     'postimage',
                     'postfile',
                     'postvideo',
-            )) || stristr($data['type'], 'repost')) {
+                )) || stristr($data['type'], 'repost')
+            ) {
                 $feed_info['content'] = parseForApi($feed_data['body']);
                 // $feed_info ['content'] = $feed_data ['body'];
                 // $feed_info['content'] = $feed_info['feed_content']; // 调试性代码，因为mysql储存的字节有限，存了不完整的序列化字符串
@@ -2003,23 +2004,23 @@ class WeiboApi extends Api
                 $attach = model('Attach')->getAttachByIds($feed_data['attach_id']);
                 foreach ($attach as $ak => $av) {
                     $_attach = array(
-                            'attach_id'        => $av['attach_id'],
-                            'attach_name'      => $av['name'],
-                            'attach_extension' => $av['extension'],
+                        'attach_id' => $av['attach_id'],
+                        'attach_name' => $av['name'],
+                        'attach_extension' => $av['extension'],
                     );
                     if ($data['type'] == 'postimage') {
-                        $_attach['attach_origin'] = getImageUrl($av['save_path'].$av['save_name']);
+                        $_attach['attach_origin'] = getImageUrl($av['save_path'] . $av['save_name']);
                         $_attach['attach_origin_width'] = $av['width'];
                         $_attach['attach_origin_height'] = $av['height'];
                         if ($av['width'] > 384 && $av['height'] > 384) {
                             //$_attach['attach_middle'] = getImageUrl($av['save_path'].$av['save_name'], 384, 384, true);
-                            $_attach['attach_middle'] = UPLOAD_URL.getThumbImage(UPLOAD_URL.$av['save_path'].$av['save_name'], 384)['src'];
+                            $_attach['attach_middle'] = UPLOAD_URL . getThumbImage(UPLOAD_URL . $av['save_path'] . $av['save_name'], 384)['src'];
                         } else {
                             $_attach['attach_middle'] = $_attach['attach_origin'];
                         }
                         if ($av['width'] > 220 && $av['height'] > 220) {
                             //$_attach['attach_small'] = getImageUrl($av['save_path'].$av['save_name'], 220, 220, true);
-                            $_attach['attach_small'] = UPLOAD_URL.getThumbImage(UPLOAD_URL.$av['save_path'].$av['save_name'], 220)['src'];
+                            $_attach['attach_small'] = UPLOAD_URL . getThumbImage(UPLOAD_URL . $av['save_path'] . $av['save_name'], 220)['src'];
                         } else {
                             $_attach['attach_small'] = $_attach['attach_origin'];
                         }
@@ -2028,12 +2029,12 @@ class WeiboApi extends Api
                 }
             } else {
                 $feed_info['attach_info'] = array(
-                    'attach_id'        => '',
-                    'attach_name'      => '',
+                    'attach_id' => '',
+                    'attach_name' => '',
                     'attach_extension' => '',
-                    'attach_origin'    => '',
-                    'attach_middle'    => '',
-                    'attach_small'     => '',
+                    'attach_origin' => '',
+                    'attach_middle' => '',
+                    'attach_small' => '',
                 );
             }
             if ($data['type'] == 'postvideo') {
@@ -2042,20 +2043,20 @@ class WeiboApi extends Api
                     $video_config = model('Xdata')->get('admin_Content:video_config');
                     $video_server = $video_config['video_server'] ? $video_config['video_server'] : SITE_URL;
                     $video_info['video_id'] = $feed_data['video_id'];
-                    $video_info['flashimg'] = $video_server.$feed_data['image_path'];
+                    $video_info['flashimg'] = $video_server . $feed_data['image_path'];
                     $video_info['flash_width'] = $feed_data['image_width'];
                     $video_info['flash_height'] = $feed_data['image_height'];
-                    if ($feed_data['transfer_id'] && !D('video_transfer')->where('transfer_id='.$feed_data['transfer_id'])->getField('status')) {
+                    if ($feed_data['transfer_id'] && !D('video_transfer')->where('transfer_id=' . $feed_data['transfer_id'])->getField('status')) {
                         $video_info['transfering'] = 1;
                     } else {
-                        $video_info['flashvar'] = $feed_data['video_mobile_path'] ? $video_server.$feed_data['video_mobile_path'] : $video_server.$feed_data['video_path'];
-                        $video_info['flashvar_part'] = $video_server.$feed_data['video_part_path'];
+                        $video_info['flashvar'] = $feed_data['video_mobile_path'] ? $video_server . $feed_data['video_mobile_path'] : $video_server . $feed_data['video_path'];
+                        $video_info['flashvar_part'] = $video_server . $feed_data['video_part_path'];
                     }
                 } else {
                     $video_info['host'] = $feed_data['host'];
                     $video_info['flashvar'] = $feed_data['flashvar'];
                     $video_info['source'] = $feed_data['source'];
-                    $video_info['flashimg'] = UPLOAD_URL.'/'.$feed_data['flashimg'];
+                    $video_info['flashimg'] = UPLOAD_URL . '/' . $feed_data['flashimg'];
                     $video_info['title'] = $feed_data['title'];
                 }
                 $feed_info['attach_info'] = $video_info;
@@ -2077,11 +2078,11 @@ class WeiboApi extends Api
      * 获取资源信息 --using.
      *
      * @param
-     *        	varchar app 应用名称
+     *            varchar app 应用名称
      * @param
-     *        	integer app_row_table 资源所在表
+     *            integer app_row_table 资源所在表
      * @param
-     *        	integer app_row_id 资源ID
+     *            integer app_row_id 资源ID
      *
      * @return array 资源信息
      */
@@ -2089,14 +2090,14 @@ class WeiboApi extends Api
     {
         switch ($app) {
             case 'weiba':
-                $weiba_post = D('weiba_post')->where('post_id='.$app_row_id.' AND is_del = 0')->field('weiba_id,post_uid,title,content')->find();
+                $weiba_post = D('weiba_post')->where('post_id=' . $app_row_id . ' AND is_del = 0')->field('weiba_id,post_uid,title,content')->find();
                 if ($weiba_post) {
                     $source_info['user_info'] = $this->get_user_info($weiba_post['post_uid']);
                     $source_info['title'] = $weiba_post['title'];
                     $source_info['content'] = real_strip_tags($weiba_post['content']);
-                    $source_info['url'] = 'mod=Weibo&act=weibo_detail&id='.$app_row_id;
-                    $source_info['source_name'] = D('weiba')->where('weiba_id='.$weiba_post['weiba_id'])->getField('weiba_name');
-                    $source_info['source_url'] = 'api.php?mod=Weiba&act=post_detail&id='.$app_row_id;
+                    $source_info['url'] = 'mod=Weibo&act=weibo_detail&id=' . $app_row_id;
+                    $source_info['source_name'] = D('weiba')->where('weiba_id=' . $weiba_post['weiba_id'])->getField('weiba_name');
+                    $source_info['source_url'] = 'api.php?mod=Weiba&act=post_detail&id=' . $app_row_id;
                     /* emoji解析 */
                     $source_info['title'] = formatEmoji(false, $source_info['title']);
                     $source_info['content'] = formatEmoji(false, $source_info['content']);
@@ -2116,22 +2117,22 @@ class WeiboApi extends Api
                     $source_info['type'] = real_strip_tags($data['type']);
                     $source_info['content'] = real_strip_tags($data['feed_content']);
                     $source_info['content'] = parseForApi($source_info['content']);
-                    $source_info['url'] = 'mod=Weibo&act=weibo_detail&id='.$app_row_id;
+                    $source_info['url'] = 'mod=Weibo&act=weibo_detail&id=' . $app_row_id;
                     // 附件处理
                     $feed_data = unserialize($data['feed_data']);
                     if (!empty($feed_data['attach_id'])) {
                         $attach = model('Attach')->getAttachByIds($feed_data['attach_id']);
                         foreach ($attach as $ak => $av) {
                             $_attach = array(
-                                    'attach_id'   => $av['attach_id'],
-                                    'attach_name' => $av['name'],
+                                'attach_id' => $av['attach_id'],
+                                'attach_name' => $av['name'],
                             );
                             if ($data['type'] == 'postimage') {
-                                $_attach['attach_origin'] = getImageUrl($av['save_path'].$av['save_name']);
+                                $_attach['attach_origin'] = getImageUrl($av['save_path'] . $av['save_name']);
                                 $_attach['attach_origin_width'] = $av['width'];
                                 $_attach['attach_origin_height'] = $av['height'];
                                 if ($av['width'] > 550 && $av['height'] > 550) {
-                                    $_attach['attach_small'] = getImageUrl($av['save_path'].$av['save_name'], 550, 550, true);
+                                    $_attach['attach_small'] = getImageUrl($av['save_path'] . $av['save_name'], 550, 550, true);
                                 } else {
                                     $_attach['attach_small'] = $_attach['attach_origin'];
                                 }
@@ -2145,21 +2146,23 @@ class WeiboApi extends Api
                         if ($feed_data['video_id']) {
                             $video_config = model('Xdata')->get('admin_Content:video_config');
                             $video_server = $video_config['video_server'] ? $video_config['video_server'] : SITE_URL;
+
                             $video_info['video_id'] = $feed_data['video_id'];
-                            $video_info['flashimg'] = $video_server.$feed_data['image_path'];
+                            $video_info['flashimg'] = $video_server . $feed_data['image_path'];
                             $video_info['flash_width'] = $feed_data['image_width'];
                             $video_info['flash_height'] = $feed_data['image_height'];
-                            if ($feed_data['transfer_id'] && !D('video_transfer')->where('transfer_id='.$feed_data['transfer_id'])->getField('status')) {
+
+                            if ($feed_data['transfer_id'] && !D('video_transfer')->where('transfer_id=' . $feed_data['transfer_id'])->getField('status')) {
                                 $video_info['transfering'] = 1;
                             } else {
-                                $video_info['flashvar'] = $feed_data['video_mobile_path'] ? $video_server.$feed_data['video_mobile_path'] : $video_server.$feed_data['video_path'];
-                                $video_info['flashvar_part'] = $video_server.$feed_data['video_part_path'];
+                                $video_info['flashvar'] = $feed_data['video_mobile_path'] ? $this->getVideoPath($feed_data['video_mobile_path'], $video_server) : $this->getVideoPath($feed_data['video_path'], $video_server);
+                                $video_info['flashvar_part'] = $this->getVideoPath($feed_data['video_part_path'], $video_server);
                             }
                         } else {
                             $video_info['host'] = $feed_data['host'];
                             $video_info['flashvar'] = $feed_data['source'];
                             $video_info['source'] = $feed_data['source'];
-                            $video_info['flashimg'] = UPLOAD_URL.$feed_data['flashimg'];
+                            $video_info['flashimg'] = UPLOAD_URL . $feed_data['flashimg'];
                             $video_info['title'] = $feed_data['title'];
                         }
                         $source_info['attach_info'][] = $video_info;
@@ -2173,11 +2176,20 @@ class WeiboApi extends Api
         return $source_info;
     }
 
+    private function getVideoPath($path, $videoServer)
+    {
+        if (starts_with($path, 'http')) {
+            return $path;
+        } else {
+            return $videoServer . $path;
+        }
+    }
+
     /**
      * 获取用户信息 --using.
      *
      * @param
-     *        	integer uid 用户UID
+     *            integer uid 用户UID
      *
      * @return array 用户信息
      */
@@ -2211,10 +2223,10 @@ class WeiboApi extends Api
     {
         return model('FeedTopic')->where(array(
             'recommend' => 1,
-            'lock'      => 0,
+            'lock' => 0,
         ))->order('`recommend_time` DESC')
-          ->limit(5)
-          ->select();
+            ->limit(5)
+            ->select();
     }
 
     /**
@@ -2234,9 +2246,9 @@ class WeiboApi extends Api
         $max_id && $where['topic_id'] = array('lt', $max_id);
 
         return model('FeedTopic')->where($where)
-                                 ->order('`topic_id` DESC')
-                                 ->limit($limit)
-                                 ->select();
+            ->order('`topic_id` DESC')
+            ->limit($limit)
+            ->select();
     }
 
     public function all_topic()
@@ -2247,19 +2259,19 @@ class WeiboApi extends Api
         if (empty($max_id)) {
             $map2['recommend'] = 1;
             $map2['lock'] = 0;
-            $res['commends'] = (array) M('feed_topic')->where($map2)->order('recommend_time desc')->limit(5)->findAll();
+            $res['commends'] = (array)M('feed_topic')->where($map2)->order('recommend_time desc')->limit(5)->findAll();
             empty($res['commends']) || $map['topic_id'] = array(
-                    'not in',
-                    getSubByKey($res['commends'], 'topic_id'),
+                'not in',
+                getSubByKey($res['commends'], 'topic_id'),
             );
         } else {
             $map['topic_id'] = array(
-                    'lt',
-                    $max_id,
+                'lt',
+                $max_id,
             );
         }
         $map['lock'] = 0;
-        $res['lists'] = (array) M('feed_topic')->where($map)->order('topic_id desc')->limit($limit)->findAll();
+        $res['lists'] = (array)M('feed_topic')->where($map)->order('topic_id desc')->limit($limit)->findAll();
         foreach ($res['lists'] as &$v) {
             $v['topic_name'] = parseForApi($v['topic_name']);
         }
