@@ -1,6 +1,6 @@
 <?php
 /**
- * 频道�
+ * 频道�
  * 容渲染Widget.
  *
  * @author zivss <guolee226@gmail.com>
@@ -12,12 +12,12 @@ class ContentWidget extends Widget
     /**
      * 模板渲染.
      *
-     * @param array $data 相�
-     * �数据
+     * @param array $data 相�
+     * �数据
      *
-     * @return string 频道�
-     * 容渲染�
-     * �口
+     * @return string 频道�
+     * 容渲染�
+     * �口
      */
     public function render($data)
     {
@@ -54,11 +54,11 @@ class ContentWidget extends Widget
     }
 
     /**
-     * 载�
-     * �频道�
+     * 载�
+     * �频道�
      * 容.
      *
-     * @return json 频道渲染�
+     * @return json 频道渲染�
      * 容
      */
     public function loadMore()
@@ -109,8 +109,8 @@ class ContentWidget extends Widget
     /**
      * 处理分享附件数据.
      *
-     * @param array $data 频道�
-     * �联数组信息
+     * @param array $data 频道�
+     * �联数组信息
      *
      * @return array 处理后的分享数据
      */
@@ -135,10 +135,14 @@ class ContentWidget extends Widget
                     $feedData = unserialize($value['feed_data']);
                     $value['body'] = replaceUrl($feedData['body']);
                     if ($feedData['video_id']) {
-                        $value['flashimg'] = SITE_URL.$feedData['image_path'];
-                        $image_info = getimagesize($value['flashimg']);
-                        $value['width'] = 236;
-                        $value['height'] = $image_info[1] / ($image_info[0] / 236);
+                        if(starts_with($value['flashimg'], 'http')){
+                            $value['flashimg'] = $value['flashimg']."?x-oss-process=image/resize,w_236,limit_0";
+                        }else{
+                            $value['flashimg'] = SITE_URL.$feedData['image_path'];
+                            $image_info = getimagesize($value['flashimg']);
+                            $value['width'] = 236;
+                            $value['height'] = $image_info[1] / ($image_info[0] / 236);
+                        }
                     } else {
                         $value['flashimg'] = $feedData['flashimg'];
                     }

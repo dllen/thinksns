@@ -2049,8 +2049,8 @@ class WeiboApi extends Api
                     if ($feed_data['transfer_id'] && !D('video_transfer')->where('transfer_id=' . $feed_data['transfer_id'])->getField('status')) {
                         $video_info['transfering'] = 1;
                     } else {
-                        $video_info['flashvar'] = $feed_data['video_mobile_path'] ? $video_server . $feed_data['video_mobile_path'] : $video_server . $feed_data['video_path'];
-                        $video_info['flashvar_part'] = $video_server . $feed_data['video_part_path'];
+                        $video_info['flashvar'] = $feed_data['video_mobile_path'] ? $this->getVideoPath($feed_data['video_mobile_path'],$video_server)   : $this->getVideoPath($feed_data['video_path'], $video_server);
+                        $video_info['flashvar_part'] = $this->getVideoPath($feed_data['video_part_path'], $video_server);
                     }
                 } else {
                     $video_info['host'] = $feed_data['host'];
@@ -2148,7 +2148,7 @@ class WeiboApi extends Api
                             $video_server = $video_config['video_server'] ? $video_config['video_server'] : SITE_URL;
 
                             $video_info['video_id'] = $feed_data['video_id'];
-                            $video_info['flashimg'] = $video_server . $feed_data['image_path'];
+                            $video_info['flashimg'] = $this->getVideoPath($feed_data['image_path'], $video_server);
                             $video_info['flash_width'] = $feed_data['image_width'];
                             $video_info['flash_height'] = $feed_data['image_height'];
 
@@ -2175,6 +2175,7 @@ class WeiboApi extends Api
 
         return $source_info;
     }
+
 
     private function getVideoPath($path, $videoServer)
     {
