@@ -202,12 +202,10 @@ class ChannelModel extends Model
                 }
             } elseif ($feedInfo['type'] == 'postvideo') {
                 $feedData = unserialize($feedInfo['feed_data']);
-                if (!starts_with($feedData['flashimg'], 'http')) {
-                    $imageInfo = getimagesize($feedData['flashimg']);
-                    if ($imageInfo !== false) {
-                        $data['width'] = $imageInfo[0];
-                        $data['height'] = $imageInfo[1];
-                    }
+                $imageInfo = getimagesize($feedData['flashimg']);
+                if ($imageInfo !== false) {
+                    $data['width'] = $imageInfo[0];
+                    $data['height'] = $imageInfo[1];
                 }
 
             }

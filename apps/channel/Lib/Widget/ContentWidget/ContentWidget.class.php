@@ -135,8 +135,11 @@ class ContentWidget extends Widget
                     $feedData = unserialize($value['feed_data']);
                     $value['body'] = replaceUrl($feedData['body']);
                     if ($feedData['video_id']) {
-                        if(starts_with($value['flashimg'], 'http')){
-                            $value['flashimg'] = $value['flashimg']."?x-oss-process=image/resize,w_236,limit_0";
+                        if(starts_with($feedData['image_path'], 'http')){
+                            $value['flashimg'] = $feedData['image_path']."?x-oss-process=image/resize,w_236,limit_0";
+                            $image_info = getimagesize($feedData['image_path']);
+                            $value['width'] = 236;
+                            $value['height'] = $image_info[1] / ($image_info[0] / 236);
                         }else{
                             $value['flashimg'] = SITE_URL.$feedData['image_path'];
                             $image_info = getimagesize($value['flashimg']);
