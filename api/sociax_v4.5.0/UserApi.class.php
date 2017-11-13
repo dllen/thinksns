@@ -831,14 +831,14 @@ class UserApi extends Api
             $video_id = $tmp['video_id'];
             if ($video_id) {
                 $video_list[$k]['video_id'] = $video_id;
-                $video_list[$k]['flashimg'] = $video_server.$tmp['image_path'];
+                $video_list[$k]['flashimg'] = $this->getVideoPath($tmp['image_path'], $video_server);
                 if ($tmp['transfer_id'] && !D('video_transfer')->where('transfer_id='.$tmp['transfer_id'])->getField('status')) {
                     $video_list[$k]['transfering'] = 1;
                 } else {
                     $video_list[$k]['flashvar'] = $tmp['video_mobile_path'] ? $this->getVideoPath($tmp['video_mobile_path'], $video_server) : $this->getVideoPath($tmp['video_path'], $video_server);
                 }
             } else {
-                $video_list[$k]['flashimg'] = UPLOAD_URL.'/'.$tmp['flashimg'];
+                $video_list[$k]['flashimg'] = starts_with($tmp['flashimg'], 'http') ? $tmp['flashimg'] : UPLOAD_URL . '/' . $tmp['flashimg'];
                 $pos = stripos($tmp['body'], 'http');
                 $video_list[$k]['flashvar'] = substr($tmp['body'], $pos);
             }
